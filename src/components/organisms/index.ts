@@ -203,5 +203,55 @@ export type {
   RetweetStatsProps
 } from './CollapsibleRetweet';
 
+// System Health Galaxy Organisms (Phase 5)
+export { SystemHealthDashboard } from './SystemHealthDashboard';
+export type {
+  SystemHealthDashboardProps,
+  ServiceStatusCardProps,
+  MetricsOverviewProps,
+  PerformanceChartsProps
+} from './SystemHealthDashboard';
+
+export { JobQueueManager } from './JobQueueManager';
+export type {
+  JobQueueManagerProps,
+  QueueCardProps,
+  JobTableProps,
+  QueueMetricsProps
+} from './JobQueueManager';
+
+export { LogsViewer } from './LogsViewer';
+export type {
+  LogsViewerProps,
+  LogFilters,
+  LogEntryRowProps,
+  LogStatsProps,
+  LogFiltersBarProps
+} from './LogsViewer';
+
+export { BulkOperationsManager } from './BulkOperationsManager';
+export type {
+  BulkOperationsManagerProps,
+  CreateOperationFormProps,
+  OperationCardProps,
+  OperationsStatsProps
+} from './BulkOperationsManager';
+
+export { SlashingManager } from './SlashingManager';
+export type {
+  SlashingManagerProps,
+  CreateSlashingFormProps,
+  SlashingCardProps,
+  SlashingStatsProps
+} from './SlashingManager';
+
+export { ReScoringManager } from './ReScoringManager';
+export type {
+  ReScoringManagerProps,
+  ReScoringJobCardProps,
+  ReScoringStatsProps,
+  CreateReScoringFormProps
+} from './ReScoringManager';
+
 // Future Organisms (Phase 4+)
 // export { ChartBuilder } from './ChartBuilder';

@@ -27,6 +27,14 @@ import type {
   NetworkNode,
   NetworkLink,
   NetworkCluster,
+  SystemHealthMetrics,
+  SystemService,
+  JobQueue,
+  JobType,
+  BackfillJob,
+  LogEntry,
+  BulkOperation,
+  SlashingAction,
 } from "./types";
 
 // Set a consistent seed for reproducible results in development
@@ -756,6 +764,305 @@ export function generateNetworkData(nodeCount: number = 50, linkDensity: number 
   return { nodes, links };
 }
 
+// Phase 5: System Health Galaxy Mock Data Generators
+
+/**
+ * Generate realistic system health metrics
+ */
+export function generateSystemHealthMetrics(): SystemHealthMetrics {
+  return {
+    uptime: faker.number.int({ min: 86400, max: 2592000 }), // 1 day to 30 days
+    cpu: faker.number.float({ min: 5, max: 95, fractionDigits: 1 }),
+    memory: faker.number.float({ min: 20, max: 85, fractionDigits: 1 }),
+    disk: faker.number.float({ min: 10, max: 75, fractionDigits: 1 }),
+    network: {
+      in: faker.number.int({ min: 1000000, max: 100000000 }), // 1MB to 100MB/sec
+      out: faker.number.int({ min: 500000, max: 50000000 }), // 0.5MB to 50MB/sec
+    },
+    database: {
+      connections: faker.number.int({ min: 10, max: 200 }),
+      queries: faker.number.int({ min: 100, max: 10000 }),
+      responseTime: faker.number.float({ min: 0.5, max: 50, fractionDigits: 2 }),
+    },
+    api: {
+      requestRate: faker.number.int({ min: 50, max: 5000 }),
+      errorRate: faker.number.float({ min: 0, max: 5, fractionDigits: 2 }),
+      responseTime: faker.number.float({ min: 10, max: 500, fractionDigits: 1 }),
+    },
+    processing: {
+      queueSize: faker.number.int({ min: 0, max: 1000 }),
+      processedJobs: faker.number.int({ min: 100, max: 50000 }),
+      failedJobs: faker.number.int({ min: 0, max: 100 }),
+      throughput: faker.number.int({ min: 10, max: 1000 }),
+    },
+    timestamp: faker.date.recent({ days: 1 }).toISOString(),
+  };
+}
+
+/**
+ * Generate system services with health statuses
+ */
+export function generateSystemService(): SystemService {
+  const statuses: SystemService['status'][] = ['healthy', 'warning', 'critical', 'down'];
+  const serviceNames = [
+    'API Gateway',
+    'Database Primary',
+    'Database Replica',
+    'Cache Service',
+    'Message Queue',
+    'File Storage',
+    'Search Index',
+    'Authentication Service',
+    'Notification Service',
+    'Analytics Service'
+  ];
+
+  return {
+    id: faker.string.uuid(),
+    name: faker.helpers.arrayElement(serviceNames),
+    status: faker.helpers.weightedArrayElement([
+      { weight: 70, value: 'healthy' },
+      { weight: 20, value: 'warning' },
+      { weight: 8, value: 'critical' },
+      { weight: 2, value: 'down' }
+    ]),
+    uptime: faker.number.int({ min: 3600, max: 2592000 }), // 1 hour to 30 days
+    healthCheck: {
+      lastCheck: faker.date.recent({ days: 1 }).toISOString(),
+      responseTime: faker.number.float({ min: 1, max: 100, fractionDigits: 2 }),
+      endpoint: `/health/${faker.internet.domainWord()}`,
+      message: faker.helpers.maybe(() => faker.lorem.sentence()) || undefined,
+    },
+    version: `${faker.number.int({ min: 1, max: 3 })}.${faker.number.int({ min: 0, max: 20 })}.${faker.number.int({ min: 0, max: 50 })}`,
+    dependencies: faker.helpers.arrayElements(serviceNames.filter(s => s !== serviceNames[0]), { min: 0, max: 3 }),
+  };
+}
+
+/**
+ * Generate job queue data
+ */
+export function generateJobQueue(): JobQueue {
+  const queueNames = [
+    'scoring-queue',
+    'indexing-queue',
+    'notification-queue',
+    'export-queue',
+    'analytics-queue',
+    'cleanup-queue'
+  ];
+
+  const jobTypes: JobType[] = Array.from({ length: faker.number.int({ min: 2, max: 5 }) }, () => ({
+    name: faker.helpers.arrayElement([
+      'score_post',
+      'update_index',
+      'send_notification',
+      'export_data',
+      'calculate_metrics',
+      'cleanup_old_data'
+    ]),
+    count: faker.number.int({ min: 1, max: 100 }),
+    avgProcessingTime: faker.number.int({ min: 100, max: 5000 }),
+    failureRate: faker.number.float({ min: 0, max: 10, fractionDigits: 2 }),
+  }));
+
+  return {
+    id: faker.string.uuid(),
+    name: faker.helpers.arrayElement(queueNames),
+    status: faker.helpers.weightedArrayElement([
+      { weight: 80, value: 'active' },
+      { weight: 15, value: 'paused' },
+      { weight: 5, value: 'stopped' }
+    ]),
+    size: faker.number.int({ min: 0, max: 500 }),
+    rate: faker.number.float({ min: 0.5, max: 100, fractionDigits: 1 }),
+    jobTypes,
+    priority: faker.helpers.arrayElement(['low', 'normal', 'high', 'critical']),
+    lastActivity: faker.date.recent({ days: 1 }).toISOString(),
+  };
+}
+
+/**
+ * Generate backfill job data
+ */
+export function generateBackfillJob(): BackfillJob {
+  const status = faker.helpers.arrayElement(['pending', 'running', 'completed', 'failed', 'cancelled']);
+  const startTime = status !== 'pending' ? faker.date.past({ years: 0.1 }).toISOString() : undefined;
+  const endTime = ['completed', 'failed', 'cancelled'].includes(status) ? 
+    faker.date.between({ from: startTime || new Date(), to: new Date() }).toISOString() : undefined;
+
+  const totalRecords = faker.number.int({ min: 1000, max: 1000000 });
+  const recordsProcessed = status === 'completed' ? totalRecords : 
+    status === 'running' ? faker.number.int({ min: 0, max: totalRecords }) : 0;
+
+  return {
+    id: faker.string.uuid(),
+    name: faker.helpers.arrayElement([
+      'Historical Post Scoring',
+      'User Index Rebuild',
+      'Topic Migration',
+      'Cache Refresh',
+      'Analytics Recalculation'
+    ]),
+    status,
+    type: faker.helpers.arrayElement(['data_migration', 'scoring_update', 'index_rebuild', 'cache_refresh']),
+    progress: Math.round((recordsProcessed / totalRecords) * 100),
+    startTime,
+    endTime,
+    duration: startTime && endTime ? Math.floor((new Date(endTime).getTime() - new Date(startTime).getTime()) / 1000) : undefined,
+    recordsProcessed,
+    totalRecords,
+    error: status === 'failed' ? faker.lorem.sentence() : undefined,
+    parameters: {
+      batchSize: faker.number.int({ min: 100, max: 1000 }),
+      parallelWorkers: faker.number.int({ min: 1, max: 10 }),
+      dryRun: faker.datatype.boolean(),
+    },
+    createdBy: faker.person.fullName(),
+    createdAt: faker.date.past({ years: 0.1 }).toISOString(),
+  };
+}
+
+/**
+ * Generate log entries
+ */
+export function generateLogEntry(orgId?: string): LogEntry {
+  const services = ['api', 'worker', 'database', 'cache', 'auth', 'notifications'];
+  const levels: LogEntry['level'][] = ['debug', 'info', 'warn', 'error', 'fatal'];
+  
+  return {
+    id: faker.string.uuid(),
+    level: faker.helpers.weightedArrayElement([
+      { weight: 10, value: 'debug' },
+      { weight: 50, value: 'info' },
+      { weight: 25, value: 'warn' },
+      { weight: 10, value: 'error' },
+      { weight: 5, value: 'fatal' }
+    ]),
+    timestamp: faker.date.recent({ days: 1 }).toISOString(),
+    service: faker.helpers.arrayElement(services),
+    message: faker.lorem.sentence(),
+    metadata: faker.helpers.maybe(() => ({
+      requestId: faker.string.uuid(),
+      endpoint: faker.internet.url(),
+      duration: faker.number.int({ min: 10, max: 5000 }),
+    })),
+    requestId: faker.helpers.maybe(() => faker.string.uuid()),
+    userId: faker.helpers.maybe(() => faker.string.uuid()),
+    orgId: orgId || faker.helpers.maybe(() => faker.string.uuid()),
+  };
+}
+
+/**
+ * Generate bulk operation data
+ */
+export function generateBulkOperation(): BulkOperation {
+  const status = faker.helpers.arrayElement(['queued', 'running', 'completed', 'failed', 'cancelled']);
+  const total = faker.number.int({ min: 100, max: 100000 });
+  const processed = status === 'completed' ? total : 
+    status === 'running' ? faker.number.int({ min: 0, max: total }) : 0;
+
+  return {
+    id: faker.string.uuid(),
+    name: faker.helpers.arrayElement([
+      'Bulk Score Update',
+      'Mass User Export',
+      'Topic Cleanup',
+      'Post Reindexing',
+      'Leaderboard Refresh'
+    ]),
+    type: faker.helpers.arrayElement(['delete', 'update', 'rescore', 'reindex', 'export', 'import']),
+    entityType: faker.helpers.arrayElement(['posts', 'users', 'topics', 'leaderboards', 'rules']),
+    status,
+    progress: {
+      processed,
+      total,
+      percentage: Math.round((processed / total) * 100),
+      currentItem: status === 'running' ? faker.lorem.word() : undefined,
+    },
+    parameters: {
+      filters: { dateRange: 'last_30_days' },
+      batchSize: faker.number.int({ min: 10, max: 100 }),
+    },
+    filters: {
+      platform: faker.helpers.arrayElement(['twitter', 'linkedin', 'reddit']),
+      minScore: faker.number.int({ min: 0, max: 100 }),
+    },
+    results: status === 'completed' ? {
+      successful: faker.number.int({ min: processed * 0.8, max: processed }),
+      failed: faker.number.int({ min: 0, max: processed * 0.1 }),
+      skipped: faker.number.int({ min: 0, max: processed * 0.1 }),
+      errors: [],
+    } : undefined,
+    safetyControls: {
+      dryRun: faker.datatype.boolean(),
+      requiresConfirmation: true,
+      maxItems: faker.number.int({ min: 1000, max: 100000 }),
+      timeout: faker.number.int({ min: 300, max: 3600 }),
+    },
+    createdBy: faker.person.fullName(),
+    createdAt: faker.date.past({ years: 0.1 }).toISOString(),
+    startedAt: status !== 'queued' ? faker.date.past({ years: 0.1 }).toISOString() : undefined,
+    completedAt: ['completed', 'failed', 'cancelled'].includes(status) ? 
+      faker.date.recent({ days: 1 }).toISOString() : undefined,
+  };
+}
+
+/**
+ * Generate slashing action data
+ */
+export function generateSlashingAction(): SlashingAction {
+  const action = faker.helpers.arrayElement(['slash_score', 'boost_score', 'disable', 'flag', 'remove']);
+  const status = faker.helpers.arrayElement(['pending', 'applied', 'reverted', 'failed']);
+
+  return {
+    id: faker.string.uuid(),
+    targetType: faker.helpers.arrayElement(['user', 'post', 'topic']),
+    targetId: faker.string.uuid(),
+    action,
+    amount: ['slash_score', 'boost_score'].includes(action) ? faker.number.int({ min: 1, max: 50 }) : undefined,
+    reason: faker.helpers.arrayElement([
+      'Spam detected',
+      'Community guidelines violation',
+      'Manipulated engagement',
+      'False information',
+      'Harassment',
+      'Quality improvement needed'
+    ]),
+    status,
+    severity: faker.helpers.arrayElement(['minor', 'moderate', 'major', 'severe']),
+    audit: {
+      appliedBy: faker.person.fullName(),
+      appliedAt: faker.date.past({ years: 0.1 }).toISOString(),
+      reviewedBy: faker.helpers.maybe(() => faker.person.fullName()),
+      reviewedAt: faker.helpers.maybe(() => faker.date.recent({ days: 1 }).toISOString()),
+      revertedBy: status === 'reverted' ? faker.person.fullName() : undefined,
+      revertedAt: status === 'reverted' ? faker.date.recent({ days: 1 }).toISOString() : undefined,
+      notes: faker.helpers.maybe(() => faker.lorem.sentence()),
+    },
+    originalValues: {
+      score: faker.number.int({ min: 0, max: 100 }),
+      status: 'active',
+    },
+    newValues: status === 'applied' ? {
+      score: faker.number.int({ min: 0, max: 100 }),
+      status: action === 'disable' ? 'disabled' : 'active',
+    } : undefined,
+  };
+}
+
+/**
+ * Generate multiple system health metrics for historical data
+ */
+export function generateSystemHealthHistory(count: number = 24): SystemHealthMetrics[] {
+  return Array.from({ length: count }, (_, i) => ({
+    ...generateSystemHealthMetrics(),
+    timestamp: faker.date.between({
+      from: new Date(Date.now() - count * 60 * 60 * 1000),
+      to: new Date(Date.now() - i * 60 * 60 * 1000)
+    }).toISOString(),
+  }));
+}
+
 // Development helpers
 export const sampleData = {
   sampleOrganization: generateOrganization(),
@@ -775,6 +1082,19 @@ export const sampleData = {
   sampleNetworkData: generateNetworkData(40, 0.12),
   get sampleNetworkClusters() {
     return Array.from({ length: 3 }, () => generateNetworkCluster(this.sampleNetworkData.nodes));
+  },
+  // Phase 5: System Health Galaxy data
+  sampleSystemHealthMetrics: generateSystemHealthMetrics(),
+  sampleSystemServices: Array.from({ length: 10 }, () => generateSystemService()),
+  sampleJobQueues: Array.from({ length: 6 }, () => generateJobQueue()),
+  sampleBackfillJobs: Array.from({ length: 5 }, () => generateBackfillJob()),
+  get sampleLogEntries() {
+    return Array.from({ length: 100 }, () => generateLogEntry('sample-org'));
+  },
+  sampleBulkOperations: Array.from({ length: 8 }, () => generateBulkOperation()),
+  sampleSlashingActions: Array.from({ length: 12 }, () => generateSlashingAction()),
+  get sampleSystemHealthHistory() {
+    return generateSystemHealthHistory(24);
   },
 };
 

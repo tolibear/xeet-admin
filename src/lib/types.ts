@@ -443,6 +443,227 @@ export interface LiveFeedFilters {
   };
 }
 
+// System Health Galaxy Types (Phase 5)
+export interface SystemHealthMetrics {
+  /** System uptime in seconds */
+  uptime: number;
+  /** CPU usage percentage */
+  cpu: number;
+  /** Memory usage percentage */
+  memory: number;
+  /** Disk usage percentage */
+  disk: number;
+  /** Network activity in bytes/sec */
+  network: {
+    in: number;
+    out: number;
+  };
+  /** Database metrics */
+  database: {
+    connections: number;
+    queries: number;
+    responseTime: number;
+  };
+  /** API metrics */
+  api: {
+    requestRate: number;
+    errorRate: number;
+    responseTime: number;
+  };
+  /** Processing metrics */
+  processing: {
+    queueSize: number;
+    processedJobs: number;
+    failedJobs: number;
+    throughput: number;
+  };
+  /** Timestamp of metrics collection */
+  timestamp: string;
+}
+
+export interface SystemService {
+  /** Service identifier */
+  id: string;
+  /** Service name */
+  name: string;
+  /** Service status */
+  status: 'healthy' | 'warning' | 'critical' | 'down';
+  /** Service uptime */
+  uptime: number;
+  /** Health check details */
+  healthCheck: {
+    lastCheck: string;
+    responseTime: number;
+    endpoint: string;
+    message?: string;
+  };
+  /** Service version */
+  version: string;
+  /** Service dependencies */
+  dependencies: string[];
+}
+
+export interface JobQueue {
+  /** Queue identifier */
+  id: string;
+  /** Queue name */
+  name: string;
+  /** Queue status */
+  status: 'active' | 'paused' | 'stopped';
+  /** Current queue size */
+  size: number;
+  /** Processing rate (jobs/min) */
+  rate: number;
+  /** Job types in queue */
+  jobTypes: JobType[];
+  /** Queue priority */
+  priority: 'low' | 'normal' | 'high' | 'critical';
+  /** Last activity timestamp */
+  lastActivity: string;
+}
+
+export interface JobType {
+  /** Job type name */
+  name: string;
+  /** Number of jobs of this type */
+  count: number;
+  /** Average processing time */
+  avgProcessingTime: number;
+  /** Failure rate */
+  failureRate: number;
+}
+
+export interface BackfillJob {
+  /** Job identifier */
+  id: string;
+  /** Job name */
+  name: string;
+  /** Job status */
+  status: 'pending' | 'running' | 'completed' | 'failed' | 'cancelled';
+  /** Job type */
+  type: 'data_migration' | 'scoring_update' | 'index_rebuild' | 'cache_refresh';
+  /** Progress percentage */
+  progress: number;
+  /** Start time */
+  startTime?: string;
+  /** End time */
+  endTime?: string;
+  /** Duration in seconds */
+  duration?: number;
+  /** Records processed */
+  recordsProcessed: number;
+  /** Total records to process */
+  totalRecords: number;
+  /** Error message if failed */
+  error?: string;
+  /** Job parameters */
+  parameters: Record<string, unknown>;
+  /** Created by user */
+  createdBy: string;
+  /** Created at timestamp */
+  createdAt: string;
+}
+
+export interface LogEntry {
+  /** Log entry ID */
+  id: string;
+  /** Log level */
+  level: 'debug' | 'info' | 'warn' | 'error' | 'fatal';
+  /** Timestamp */
+  timestamp: string;
+  /** Source service */
+  service: string;
+  /** Log message */
+  message: string;
+  /** Additional metadata */
+  metadata?: Record<string, unknown>;
+  /** Request ID for tracing */
+  requestId?: string;
+  /** User ID if applicable */
+  userId?: string;
+  /** Organization ID */
+  orgId?: string;
+}
+
+export interface BulkOperation {
+  /** Operation ID */
+  id: string;
+  /** Operation name */
+  name: string;
+  /** Operation type */
+  type: 'delete' | 'update' | 'rescore' | 'reindex' | 'export' | 'import';
+  /** Target entity type */
+  entityType: 'posts' | 'users' | 'topics' | 'leaderboards' | 'rules';
+  /** Operation status */
+  status: 'queued' | 'running' | 'completed' | 'failed' | 'cancelled';
+  /** Progress information */
+  progress: {
+    processed: number;
+    total: number;
+    percentage: number;
+    currentItem?: string;
+  };
+  /** Operation parameters */
+  parameters: Record<string, unknown>;
+  /** Filters applied */
+  filters?: Record<string, unknown>;
+  /** Results summary */
+  results?: {
+    successful: number;
+    failed: number;
+    skipped: number;
+    errors: string[];
+  };
+  /** Safety controls */
+  safetyControls: {
+    dryRun: boolean;
+    requiresConfirmation: boolean;
+    maxItems: number;
+    timeout: number;
+  };
+  /** Created by user */
+  createdBy: string;
+  /** Created at timestamp */
+  createdAt: string;
+  /** Started at timestamp */
+  startedAt?: string;
+  /** Completed at timestamp */
+  completedAt?: string;
+}
+
+export interface SlashingAction {
+  /** Action ID */
+  id: string;
+  /** Target type */
+  targetType: 'user' | 'post' | 'topic';
+  /** Target ID */
+  targetId: string;
+  /** Action type */
+  action: 'slash_score' | 'boost_score' | 'disable' | 'flag' | 'remove';
+  /** Slash amount or boost amount */
+  amount?: number;
+  /** Reason for the action */
+  reason: string;
+  /** Action status */
+  status: 'pending' | 'applied' | 'reverted' | 'failed';
+  /** Severity level */
+  severity: 'minor' | 'moderate' | 'major' | 'severe';
+  /** Audit trail */
+  audit: {
+    appliedBy: string;
+    appliedAt: string;
+    reviewedBy?: string;
+    reviewedAt?: string;
+    revertedBy?: string;
+    revertedAt?: string;
+    notes?: string;
+  };
+  /** Original values (for reverting) */
+  originalValues?: Record<string, unknown>;
+  /** New values applied */
+  newValues?: Record<string, unknown>;
+}
+
 // Component Props Base Types
 export interface BaseAtomProps {
   className?: string;
