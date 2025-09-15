@@ -31,14 +31,14 @@ import {
   Percent,
   Ban
 } from 'lucide-react';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-import { Separator } from '@/components/ui/separator';
+import { Card } from '@/components';
+import { Badge } from '@/components';
+import { Button } from '@/components';
+import { Progress } from '@/components';
+import { Input } from '@/components';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components';
+import { Switch } from '@/components';
+import { Separator } from '@/components';
 import { MetricCard } from '@/components/molecules/MetricCard';
 import { StatusDot } from '@/components/atoms/StatusDot';
 import { cn } from '@/lib/utils';

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
+import { action } from '@storybook/addon-actions';
 import { EmbeddableIframe } from "./EmbeddableIframe";
 
 const meta = {
@@ -45,9 +45,9 @@ Use this template when you need comprehensive embed management functionality for
     },
   },
   args: {
-    onConfigChange: fn(),
-    onGenerateEmbed: fn(),
-    onTestEmbed: fn(),
+    onConfigChange: action('onConfigChange'),
+    onGenerateEmbed: action('onGenerateEmbed'),
+    onTestEmbed: action('onTestEmbed'),
   },
 } satisfies Meta<typeof EmbeddableIframe>;
 

@@ -30,12 +30,12 @@ import {
   XCircle,
   BarChart3
 } from 'lucide-react';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components';
+import { Badge } from '@/components';
 import { MetricCard } from '@/components/molecules/MetricCard';
 import { StatusDot } from '@/components/atoms/StatusDot';
 import { Chart } from '@/components/organisms/Chart';
-import { Separator } from '@/components/ui/separator';
+import { Separator } from '@/components';
 import { cn } from '@/lib/utils';
 import type { 
   SystemHealthMetrics, 

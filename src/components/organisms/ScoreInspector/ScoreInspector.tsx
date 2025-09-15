@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Progress } from "@/components/ui/progress";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components";
+import { Badge } from "@/components";
+import { Button } from "@/components";
+import { Separator } from "@/components";
+import { Progress } from "@/components";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components";
 import { 
   BarChart3, 
   ChevronDown, 

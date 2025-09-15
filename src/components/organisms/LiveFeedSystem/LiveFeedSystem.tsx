@@ -13,13 +13,13 @@ import {
   Pause,
   RefreshCw
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Switch } from '@/components/ui/switch';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components';
+import { Card } from '@/components';
+import { Badge } from '@/components';
+import { Switch } from '@/components';
+import { ScrollArea } from '@/components';
+import { Separator } from '@/components';
+import { Alert, AlertDescription } from '@/components';
 import { cn } from '@/lib/utils';
 import type { LiveFeedSystemProps, DeduplicationConfig } from './types';
 import type { LiveFeedItem, LiveFeedConnection } from '@/lib/types';

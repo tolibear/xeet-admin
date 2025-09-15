@@ -3,7 +3,8 @@ import Link from "next/link";
 import { LucideIcon, Search, BarChart3, Settings, Users, FileText, Zap } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Card, CardContent, Button } from "../atoms";
+import { Button } from "../atoms";
+import { Card, CardContent } from "../molecules/card";
 import { useOrg } from "@/lib/org-context";
 
 export interface QuickLink {

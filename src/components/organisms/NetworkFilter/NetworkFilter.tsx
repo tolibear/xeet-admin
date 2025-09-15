@@ -2,15 +2,15 @@
 
 import React, { useState, useMemo } from 'react';
 import { Filter, Search, X, RotateCcw, ChevronDown, Settings2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Switch } from '@/components/ui/switch';
-import { Slider } from '@/components/ui/slider';
-import { Separator } from '@/components/ui/separator';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Button } from '@/components';
+import { Card } from '@/components';
+import { Input } from '@/components';
+import { Badge } from '@/components';
+import { Switch } from '@/components';
+import { Slider } from '@/components';
+import { Separator } from '@/components';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components';
 import { SearchBox } from '@/components/molecules/SearchBox';
 import { cn } from '@/lib/utils';
 import type { NetworkFilterProps, NetworkFilterSettings } from './types';

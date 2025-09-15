@@ -2,10 +2,10 @@
 
 import type { Metadata } from "next";
 import React from 'react';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components';
+import { Card } from '@/components';
+import { Separator } from '@/components';
 import { 
   SystemHealthDashboard,
   JobQueueManager, 

@@ -18,10 +18,20 @@
  */
 
 // Re-export shadcn/ui atoms (enhanced with all states)
-export { Button } from "../ui/button";
-export { Input } from "../ui/input";
-export { Badge } from "../ui/badge";
-export { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from "../ui/card";
+export { Button, buttonVariants } from "./button";
+export { Input } from "./input";
+export { Badge } from "./badge";
+export { Label } from "./label";
+export { Textarea } from "./textarea";
+export { Checkbox } from "./checkbox";
+export { RadioGroup, RadioGroupItem } from "./radio-group";
+export { Switch } from "./switch";
+export { Toggle } from "./toggle";
+export { Slider } from "./slider";
+export { Separator } from "./separator";
+export { Skeleton } from "./skeleton";
+export { Progress } from "./progress";
+export { AspectRatio } from "./aspect-ratio";
 
 // Custom atomic components
 export { StatusDot } from "./StatusDot";

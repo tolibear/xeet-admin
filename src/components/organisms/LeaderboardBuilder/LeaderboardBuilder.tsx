@@ -1,16 +1,16 @@
 "use client";
 
 import { useState, useCallback, useMemo, useEffect } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
-import { Slider } from "@/components/ui/slider";
-import { Separator } from "@/components/ui/separator";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components";
+import { Badge } from "@/components";
+import { Button } from "@/components";
+import { Input } from "@/components";
+import { Textarea } from "@/components";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components";
+import { Switch } from "@/components";
+import { Slider } from "@/components";
+import { Separator } from "@/components";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components";
 import { 
   Trophy,
   Settings,

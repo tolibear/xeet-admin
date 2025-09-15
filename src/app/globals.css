@@ -5,33 +5,33 @@
 @layer base {
   :root {
     /* Xeet Admin Dark Theme - Professional Admin Platform Colors */
-    --background: 222 47% 11%; /* Deep slate background */
-    --foreground: 213 31% 91%; /* Crisp white text */
-    --card: 224 71% 4%; /* Slightly lighter card background */
-    --card-foreground: 213 31% 91%; /* Card text */
-    --popover: 224 71% 4%; /* Popover background */
-    --popover-foreground: 213 31% 91%; /* Popover text */
-    --primary: 210 100% 60%; /* Professional blue primary */
-    --primary-foreground: 222 47% 11%; /* Primary button text */
-    --secondary: 222 47% 11%; /* Secondary background */
-    --secondary-foreground: 213 31% 91%; /* Secondary text */
-    --muted: 223 47% 11%; /* Muted background */
-    --muted-foreground: 215.4 16.3% 56.9%; /* Muted text */
-    --accent: 210 100% 60%; /* Accent color (blue) */
-    --accent-foreground: 222 47% 11%; /* Accent text */
-    --destructive: 0 72% 51%; /* Red for destructive actions */
-    --destructive-foreground: 213 31% 91%; /* Destructive text */
-    --border: 216 34% 17%; /* Border color */
-    --input: 216 34% 17%; /* Input background */
-    --ring: 210 100% 60%; /* Focus ring */
-    --radius: 0.75rem; /* Slightly more rounded */
+    --background: oklch(1.0000 0 0); /* Deep slate background */
+    --foreground: oklch(0.2077 0.0398 265.7549); /* Crisp white text */
+    --card: oklch(1.0000 0 0); /* Slightly lighter card background */
+    --card-foreground: oklch(0.2077 0.0398 265.7549); /* Card text */
+    --popover: oklch(1.0000 0 0); /* Popover background */
+    --popover-foreground: oklch(0.2077 0.0398 265.7549); /* Popover text */
+    --primary: oklch(0.5246 0.1990 3.9582); /* Professional blue primary */
+    --primary-foreground: oklch(1.0000 0 0); /* Primary button text */
+    --secondary: oklch(0.9842 0.0034 247.8575); /* Secondary background */
+    --secondary-foreground: oklch(0.2077 0.0398 265.7549); /* Secondary text */
+    --muted: oklch(0.9842 0.0034 247.8575); /* Muted background */
+    --muted-foreground: oklch(0.5544 0.0407 257.4166); /* Muted text */
+    --accent: oklch(0.9694 0.0152 12.4219); /* Accent color (blue) */
+    --accent-foreground: oklch(0.4546 0.1713 13.6968); /* Accent text */
+    --destructive: oklch(0.5858 0.2220 17.5846); /* Red for destructive actions */
+    --destructive-foreground: oklch(1.0000 0 0); /* Destructive text */
+    --border: oklch(0.9683 0.0069 247.8956); /* Border color */
+    --input: oklch(0.9683 0.0069 247.8956); /* Input background */
+    --ring: oklch(0.5858 0.2220 17.5846); /* Focus ring */
+    --radius: 1.0rem; /* Slightly more rounded */
 
     /* Professional chart colors for data visualization */
-    --chart-1: 210 100% 60%; /* Blue */
-    --chart-2: 142 69% 58%; /* Green */
-    --chart-3: 262 83% 68%; /* Purple */
-    --chart-4: 31 81% 56%; /* Orange */
-    --chart-5: 339 82% 62%; /* Pink */
+    --chart-1: oklch(0.5858 0.2220 17.5846); /* Blue */
+    --chart-2: oklch(0.5246 0.1990 3.9582); /* Green */
+    --chart-3: oklch(0.4587 0.1697 3.8151); /* Purple */
+    --chart-4: oklch(0.4078 0.1442 2.4320); /* Orange */
+    --chart-5: oklch(0.2932 0.1309 325.6610); /* Pink */
     --chart-6: 200 98% 39%; /* Teal */
     --chart-7: 48 89% 60%; /* Yellow */
     --chart-8: 358 75% 59%; /* Red */
@@ -45,10 +45,79 @@
     /* Semantic colors for admin features */
     --info: 210 100% 60%; /* Info blue */
     --info-foreground: 222 47% 11%; /* Info text */
-    --sidebar: 222 47% 11%; /* Sidebar background */
-    --sidebar-foreground: 213 31% 91%; /* Sidebar text */
+    --sidebar: oklch(0.9842 0.0034 247.8575); /* Sidebar background */
+    --sidebar-foreground: 240 5.3% 26.1%; /* Sidebar text */
     --header: 224 71% 4%; /* Header background */
-    --header-foreground: 213 31% 91%; /* Header text */
+    --header-foreground: 213 31% 91%; /* Header text */ --sidebar-primary: 240 5.9% 10%; --sidebar-primary-foreground: 0 0% 98%; --sidebar-accent: 240 4.8% 95.9%; --sidebar-accent-foreground: 240 5.9% 10%; --sidebar-border: 220 13% 91%; --sidebar-ring: 217.2 91.2% 59.8%; --font-sans: Geist, ui-sans-serif, sans-serif, system-ui; --font-serif: Georgia, serif; --font-mono: Space Mono, monospace; --shadow-color: #000000; --shadow-opacity: 0.1; --shadow-blur: 4px; --shadow-spread: 0px; --shadow-offset-x: 0px; --shadow-offset-y: 2px; --letter-spacing: 0rem; --spacing: 0.25rem; --shadow-2xs: 0px 2px 4px 0px hsl(0 0% 0% / 0.05); --shadow-xs: 0px 2px 4px 0px hsl(0 0% 0% / 0.05); --shadow-sm: 0px 2px 4px 0px hsl(0 0% 0% / 0.10), 0px 1px 2px -1px hsl(0 0% 0% / 0.10); --shadow: 0px 2px 4px 0px hsl(0 0% 0% / 0.10), 0px 1px 2px -1px hsl(0 0% 0% / 0.10); --shadow-md: 0px 2px 4px 0px hsl(0 0% 0% / 0.10), 0px 2px 4px -1px hsl(0 0% 0% / 0.10); --shadow-lg: 0px 2px 4px 0px hsl(0 0% 0% / 0.10), 0px 4px 6px -1px hsl(0 0% 0% / 0.10); --shadow-xl: 0px 2px 4px 0px hsl(0 0% 0% / 0.10), 0px 8px 10px -1px hsl(0 0% 0% / 0.10); --shadow-2xl: 0px 2px 4px 0px hsl(0 0% 0% / 0.25); --tracking-normal: 0rem; --sidebar-background: 0 0% 98%;
+  }
+  .theme {
+    --font-sans: Geist, ui-sans-serif, sans-serif, system-ui;
+    --font-mono: Space Mono, monospace;
+    --font-serif: Georgia, serif;
+    --radius: 1.0rem;
+    --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
+    --tracking-tight: calc(var(--tracking-normal) - 0.025em);
+    --tracking-wide: calc(var(--tracking-normal) + 0.025em);
+    --tracking-wider: calc(var(--tracking-normal) + 0.05em);
+    --tracking-widest: calc(var(--tracking-normal) + 0.1em);
+  }
+  .dark {
+    --background: oklch(0.1448 0 0);
+    --foreground: oklch(0.9702 0 0);
+    --card: oklch(0.1900 0.0225 333.6602);
+    --card-foreground: oklch(0.9702 0 0);
+    --popover: oklch(0.1900 0.0225 333.6602);
+    --popover-foreground: oklch(0.9702 0 0);
+    --primary: oklch(0.6023 0.2374 11.2915);
+    --primary-foreground: oklch(1.0000 0 0);
+    --secondary: oklch(0.2304 0.0320 338.8915);
+    --secondary-foreground: oklch(0.8730 0.0683 334.0032);
+    --muted: oklch(0.1900 0.0225 333.6602);
+    --muted-foreground: oklch(0.7155 0 0);
+    --accent: oklch(0.2660 0.0790 36.2590);
+    --accent-foreground: oklch(0.8730 0.0683 334.0032);
+    --destructive: oklch(0.3958 0.1331 25.7230);
+    --destructive-foreground: oklch(0.9356 0.0309 17.7172);
+    --border: oklch(0.2511 0.0416 334.2872);
+    --input: oklch(0.2511 0.0416 334.2872);
+    --ring: oklch(0.5858 0.2220 17.5846);
+    --chart-1: oklch(0.5858 0.2220 17.5846);
+    --chart-2: oklch(0.5246 0.1990 3.9582);
+    --chart-3: oklch(0.4587 0.1697 3.8151);
+    --chart-4: oklch(0.4078 0.1442 2.4320);
+    --chart-5: oklch(0.2932 0.1309 325.6610);
+    --radius: 1.0rem;
+    --sidebar: oklch(0.1448 0 0);
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    --font-sans: Geist, ui-sans-serif, sans-serif, system-ui;
+    --font-serif: Georgia, serif;
+    --font-mono: Space Mono, monospace;
+    --shadow-color: #000000;
+    --shadow-opacity: 0.5;
+    --shadow-blur: 4px;
+    --shadow-spread: 0px;
+    --shadow-offset-x: 0px;
+    --shadow-offset-y: 2px;
+    --letter-spacing: 0rem;
+    --spacing: 0.25rem;
+    --shadow-2xs: 0px 2px 4px 0px hsl(0 0% 0% / 0.25);
+    --shadow-xs: 0px 2px 4px 0px hsl(0 0% 0% / 0.25);
+    --shadow-sm: 0px 2px 4px 0px hsl(0 0% 0% / 0.50), 0px 1px 2px -1px hsl(0 0% 0% / 0.50);
+    --shadow: 0px 2px 4px 0px hsl(0 0% 0% / 0.50), 0px 1px 2px -1px hsl(0 0% 0% / 0.50);
+    --shadow-md: 0px 2px 4px 0px hsl(0 0% 0% / 0.50), 0px 2px 4px -1px hsl(0 0% 0% / 0.50);
+    --shadow-lg: 0px 2px 4px 0px hsl(0 0% 0% / 0.50), 0px 4px 6px -1px hsl(0 0% 0% / 0.50);
+    --shadow-xl: 0px 2px 4px 0px hsl(0 0% 0% / 0.50), 0px 8px 10px -1px hsl(0 0% 0% / 0.50);
+    --shadow-2xl: 0px 2px 4px 0px hsl(0 0% 0% / 1.25);
+    --sidebar-background: 240 5.9% 10%;
+  }
+  body {
+    letter-spacing: var(--tracking-normal);
   }
 }
 

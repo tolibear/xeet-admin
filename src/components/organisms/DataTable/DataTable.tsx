@@ -29,7 +29,8 @@ import { cn } from "@/lib/utils";
 import { TABLE_CONFIG } from "@/lib/constants";
 
 // Atomic imports
-import { Button, Badge, Card, CardContent, CardHeader } from "../../atoms";
+import { Button, Badge } from "../../atoms";
+import { Card, CardContent, CardHeader } from "../../molecules";
 import { SearchBox } from "../../molecules";
 
 // Types

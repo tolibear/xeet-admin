@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components';
+import { Button } from '@/components';
+import { Badge } from '@/components';
 
 export interface ListPageAction {
   id: string;

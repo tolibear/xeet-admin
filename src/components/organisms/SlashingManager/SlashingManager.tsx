@@ -30,18 +30,18 @@ import {
   AlertTriangle,
   X
 } from 'lucide-react';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-import { Separator } from '@/components/ui/separator';
+import { Card } from '@/components';
+import { Badge } from '@/components';
+import { Button } from '@/components';
+import { Input } from '@/components';
+import { Textarea } from '@/components';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components';
+import { Switch } from '@/components';
+import { Separator } from '@/components';
 import { DataTable } from '@/components/organisms/DataTable';
 import { MetricCard } from '@/components/molecules/MetricCard';
 import { StatusDot } from '@/components/atoms/StatusDot';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components';
 import { cn } from '@/lib/utils';
 import type { 
   SlashingAction, 

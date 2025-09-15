@@ -2,13 +2,13 @@
 
 import React, { useState, useMemo } from 'react';
 import { Filter, Grid3X3, List, Download, RefreshCw } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-import { Slider } from '@/components/ui/slider';
+import { Button } from '@/components';
+import { Card } from '@/components';
+import { Separator } from '@/components';
+import { Badge } from '@/components';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components';
+import { Switch } from '@/components';
+import { Slider } from '@/components';
 import { HeatmapCell } from '@/components/atoms/HeatmapCell';
 import { HeatmapLegend } from '@/components/atoms/HeatmapLegend';
 import { cn } from '@/lib/utils';

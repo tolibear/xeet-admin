@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
+import { action } from '@storybook/addon-actions';
 import { ExportBuilder } from './ExportBuilder';
 
 const meta = {
@@ -30,9 +30,9 @@ This organism composes FilterChip molecules and Button, Input, Card, Badge atoms
     isExporting: { control: 'boolean' },
   },
   args: {
-    onStartExport: fn(),
-    onDownload: fn(),
-    onCancel: fn(),
+    onStartExport: action('onStartExport'),
+    onDownload: action('onDownload'),
+    onCancel: action('onCancel'),
   },
 } satisfies Meta<typeof ExportBuilder>;
 

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
+import { action } from '@storybook/addon-actions';
 import { SavedViews } from './SavedViews';
 
 const meta = {
@@ -31,11 +31,11 @@ This organism composes SearchBox, FilterChip molecules and Button, Badge, Card a
     currentUserId: { control: 'text' },
   },
   args: {
-    onCreateView: fn(),
-    onEditView: fn(),
-    onRunView: fn(),
-    onDuplicateView: fn(),
-    onDeleteView: fn(),
+    onCreateView: action('onCreateView'),
+    onEditView: action('onEditView'),
+    onRunView: action('onRunView'),
+    onDuplicateView: action('onDuplicateView'),
+    onDeleteView: action('onDeleteView'),
     currentUserId: 'user-123',
   },
 } satisfies Meta<typeof SavedViews>;

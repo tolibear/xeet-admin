@@ -1,15 +1,15 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components";
+import { Badge } from "@/components";
+import { Button } from "@/components";
+import { Separator } from "@/components";
+import { ScrollArea } from "@/components";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components";
+import { Input } from "@/components";
+import { Textarea } from "@/components";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components";
 import { 
   Settings,
   Plus,

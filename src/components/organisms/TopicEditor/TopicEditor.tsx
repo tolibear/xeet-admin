@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { AlertCircle, Save, X, Trash2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
-import { Card } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components';
+import { Input } from '@/components';
+import { Switch } from '@/components';
+import { Card } from '@/components';
+import { Separator } from '@/components';
+import { Alert, AlertDescription } from '@/components';
 import { KeywordInput } from '@/components/molecules/KeywordInput';
 import { ColorPicker } from '@/components/atoms/ColorPicker';
 import { cn } from '@/lib/utils';

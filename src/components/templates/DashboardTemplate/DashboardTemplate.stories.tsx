@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DashboardTemplate, DASHBOARD_LAYOUTS } from './DashboardTemplate';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components';
+import { Button } from '@/components';
+import { Badge } from '@/components';
 import { Plus, Download, Settings, RefreshCw } from 'lucide-react';
 
 const meta = {

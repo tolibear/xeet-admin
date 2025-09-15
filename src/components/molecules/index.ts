@@ -17,7 +17,23 @@
  * - Handle molecule-level states
  */
 
-// Molecules - Simple atomic compositions  
+// shadcn/ui Molecules - Simple atomic compositions
+export { Alert, AlertDescription, AlertTitle } from "./alert";
+export { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from "./card";
+export { 
+  Breadcrumb, 
+  BreadcrumbList, 
+  BreadcrumbItem, 
+  BreadcrumbLink, 
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  BreadcrumbEllipsis
+} from "./breadcrumb";
+export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "./input-otp";
+export { ToggleGroup, ToggleGroupItem } from "./toggle-group";
+export { ScrollArea, ScrollBar } from "./scroll-area";
+
+// Custom Molecules - Simple atomic compositions  
 export { SearchBox } from "./SearchBox";
 export { FilterChip } from "./FilterChip";
 export { MetricCard } from "./MetricCard";

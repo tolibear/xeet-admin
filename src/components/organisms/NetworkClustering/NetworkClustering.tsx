@@ -2,14 +2,14 @@
 
 import React, { useState, useMemo } from 'react';
 import { Play, Square, RotateCcw, Download, Info } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Slider } from '@/components/ui/slider';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { Separator } from '@/components/ui/separator';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components';
+import { Card } from '@/components';
+import { Slider } from '@/components';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components';
+import { Badge } from '@/components';
+import { Progress } from '@/components';
+import { Separator } from '@/components';
+import { Alert, AlertDescription } from '@/components';
 import { cn } from '@/lib/utils';
 import type { NetworkClusteringProps, ClusteringParameters, ClusteringResult } from '../NetworkFilter/types';
 import type { NetworkData, NetworkCluster } from '@/lib/types';

@@ -3,7 +3,8 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { TrendingUp, TrendingDown, Minus, LucideIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Card, CardContent, MetricValue, Icon } from "../atoms";
+import { MetricValue, Icon } from "../atoms";
+import { Card, CardContent } from "./card";
 
 const metricCardVariants = cva(
   "transition-colors hover:bg-accent/50",

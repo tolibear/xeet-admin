@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Badge, Button } from "@/components/atoms";
+import { Badge, Button } from "@/components";
 
 const filterChipVariants = cva(
   "inline-flex items-center gap-1 transition-colors",

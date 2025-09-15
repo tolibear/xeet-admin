@@ -1,10 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
+import { action } from '@storybook/addon-actions';
 import { ListPageTemplate, LIST_PAGE_LAYOUTS, createSummaryStats, createBulkActions, createEmptyState } from './ListPageTemplate';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
+import { Button, Badge, Input } from '../../atoms';
+import { Card } from '../../molecules';
 import { Plus, Download, Filter, Search, Trash2, Edit, Archive } from 'lucide-react';
 
 const meta = {
@@ -179,13 +177,13 @@ const headerActions = [
     id: 'create',
     label: 'Create New',
     icon: <Plus className="h-4 w-4 mr-2" />,
-    onClick: fn(),
+    onClick: action('onClick'),
   },
   {
     id: 'import',
     label: 'Import',
     icon: <Download className="h-4 w-4 mr-2" />,
-    onClick: fn(),
+    onClick: action('onClick'),
     variant: 'outline' as const,
   },
 ];
@@ -225,9 +223,9 @@ export const WithBulkActions: Story = {
   args: {
     ...Default.args,
     bulkActions: createBulkActions(3, [
-      { label: 'Archive', onClick: fn() },
-      { label: 'Export', onClick: fn() },
-      { label: 'Delete', onClick: fn(), variant: 'destructive' },
+      { label: 'Archive', onClick: action('onClick') },
+      { label: 'Export', onClick: action('onClick') },
+      { label: 'Delete', onClick: action('onClick'), variant: 'destructive' },
     ]),
   },
 };
@@ -256,7 +254,7 @@ export const Empty: Story = {
       'Get started by creating your first item or importing existing data.',
       {
         label: 'Create First Item',
-        onClick: fn(),
+        onClick: action('onClick'),
       }
     ),
   },
@@ -288,13 +286,13 @@ export const EnterpriseScale: Story = {
         id: 'export-all',
         label: 'Export All',
         icon: <Download className="h-4 w-4 mr-2" />,
-        onClick: fn(),
+        onClick: action('onClick'),
         variant: 'outline' as const,
       },
       {
         id: 'settings',
         label: 'Settings',
-        onClick: fn(),
+        onClick: action('onClick'),
         variant: 'ghost' as const,
       },
     ],
@@ -389,10 +387,10 @@ export const EnterpriseScale: Story = {
       </div>
     ),
     bulkActions: createBulkActions(1247, [
-      { label: 'Bulk Edit', onClick: fn() },
-      { label: 'Archive', onClick: fn() },
-      { label: 'Export Selected', onClick: fn() },
-      { label: 'Delete', onClick: fn(), variant: 'destructive' },
+      { label: 'Bulk Edit', onClick: action('onClick') },
+      { label: 'Archive', onClick: action('onClick') },
+      { label: 'Export Selected', onClick: action('onClick') },
+      { label: 'Delete', onClick: action('onClick'), variant: 'destructive' },
     ]),
     children: (
       <div className="border rounded-lg overflow-hidden">

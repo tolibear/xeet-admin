@@ -12,13 +12,13 @@ import {
   Quote,
   Users
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Separator } from '@/components/ui/separator';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Button } from '@/components';
+import { Card } from '@/components';
+import { Badge } from '@/components';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components';
+import { Separator } from '@/components';
+import { ScrollArea } from '@/components';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components';
 import { cn } from '@/lib/utils';
 import type { CollapsibleRetweetProps, RetweetItem } from './types';
 

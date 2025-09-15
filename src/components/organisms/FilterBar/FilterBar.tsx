@@ -17,7 +17,8 @@ import { Plus, X, Save, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Atomic imports
-import { Button, Badge, Input, Card, CardContent, CardHeader } from "../../atoms";
+import { Button, Badge, Input } from "../../atoms";
+import { Card, CardContent, CardHeader } from "../../molecules";
 import { FilterChip, SearchBox } from "../../molecules";
 
 // Types

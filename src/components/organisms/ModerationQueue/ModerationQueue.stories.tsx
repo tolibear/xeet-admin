@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
+import { action } from '@storybook/addon-actions';
 import { ModerationQueue } from "./ModerationQueue";
 
 const meta = {
@@ -38,9 +38,9 @@ Use this organism when you need comprehensive moderation management functionalit
     },
   },
   args: {
-    onModerate: fn(),
-    onBulkModerate: fn(),
-    onFiltersChange: fn(),
+    onModerate: action('onModerate'),
+    onBulkModerate: action('onBulkModerate'),
+    onFiltersChange: action('onFiltersChange'),
   },
 } satisfies Meta<typeof ModerationQueue>;
 

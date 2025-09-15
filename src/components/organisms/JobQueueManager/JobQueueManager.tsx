@@ -20,11 +20,11 @@
  */
 
 import React from 'react';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
-import { Separator } from '@/components/ui/separator';
+import { Card } from '@/components';
+import { Badge } from '@/components';
+import { Button } from '@/components';
+import { Progress } from '@/components';
+import { Separator } from '@/components';
 import { DataTable } from '@/components/organisms/DataTable';
 import { MetricCard } from '@/components/molecules/MetricCard';
 import { StatusDot } from '@/components/atoms/StatusDot';

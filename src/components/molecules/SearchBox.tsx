@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { Search, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/atoms";
+import { Button } from "@/components";
 
 const searchBoxVariants = cva(
   "relative flex w-full items-center",

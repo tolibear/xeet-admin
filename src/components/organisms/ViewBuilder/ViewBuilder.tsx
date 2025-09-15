@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components';
+import { Card } from '@/components';
+import { Input } from '@/components';
+import { Badge } from '@/components';
 import { FilterChip } from '@/components/molecules/FilterChip';
 import { SearchBox } from '@/components/molecules/SearchBox';
 import { Plus, Save, Play, Settings, Eye, Code } from 'lucide-react';

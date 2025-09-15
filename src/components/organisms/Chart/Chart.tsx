@@ -34,7 +34,8 @@ import {
 import { cn } from "@/lib/utils";
 
 // Atomic imports
-import { Card, CardContent, CardHeader, Badge, Spinner } from "../../atoms";
+import { Badge, Spinner } from "../../atoms";
+import { Card, CardContent, CardHeader } from "../../molecules";
 
 // Types
 import { 

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
+import { action } from '@storybook/addon-actions';
 import { ViewBuilder } from './ViewBuilder';
 
 const meta = {
@@ -32,8 +32,8 @@ This organism composes multiple molecules (FilterChip, SearchBox) and atoms (But
     onRun: { action: 'run' },
   },
   args: {
-    onSave: fn(),
-    onRun: fn(),
+    onSave: action('onSave'),
+    onRun: action('onRun'),
   },
 } satisfies Meta<typeof ViewBuilder>;
 

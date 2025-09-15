@@ -2,9 +2,9 @@
 
 import React, { useState, useRef, KeyboardEvent } from 'react';
 import { X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '../atoms/button';
+import { Input } from '../atoms/input';
+import { Badge } from '../atoms/badge';
 import { cn } from '@/lib/utils';
 
 interface KeywordInputProps {

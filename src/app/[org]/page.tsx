@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import { DashboardMetrics, QuickLinks } from "@/components/organisms";
-import { OrgSwitcher } from "@/components/molecules";
+import { DashboardMetrics, QuickLinks } from "@/components";
+import { OrgSwitcher } from "@/components";
 
 export const metadata: Metadata = {
   title: "Overview",

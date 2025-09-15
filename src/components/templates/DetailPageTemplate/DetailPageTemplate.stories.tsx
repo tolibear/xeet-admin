@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
+import { action } from '@storybook/addon-actions';
 import { DetailPageTemplate, DETAIL_PAGE_LAYOUTS } from './DetailPageTemplate';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Button, Badge } from '../../atoms';
+import { Card } from '../../molecules';
 import { 
   Edit, 
   Trash2, 
@@ -59,7 +58,7 @@ This template provides structural layout without business logic, composing Card 
     title: 'Project Alpha',
     subtitle: 'High-priority development project for Q1 2024',
     status: { label: 'Active', variant: 'default' },
-    backAction: { label: 'Back to Projects', onClick: fn() },
+    backAction: { label: 'Back to Projects', onClick: action('onClick') },
   },
 } satisfies Meta<typeof DetailPageTemplate>;
 
@@ -254,21 +253,21 @@ const headerActions = [
     id: 'edit',
     label: 'Edit',
     icon: <Edit className="h-4 w-4 mr-2" />,
-    onClick: fn(),
+    onClick: action('onClick'),
     variant: 'default' as const,
   },
   {
     id: 'share',
     label: 'Share',
     icon: <Share2 className="h-4 w-4 mr-2" />,
-    onClick: fn(),
+    onClick: action('onClick'),
     variant: 'outline' as const,
   },
   {
     id: 'delete',
     label: 'Delete',
     icon: <Trash2 className="h-4 w-4 mr-2" />,
-    onClick: fn(),
+    onClick: action('onClick'),
     variant: 'destructive' as const,
   },
 ];
@@ -308,7 +307,7 @@ const sections = [
         id: 'edit-overview',
         label: 'Edit',
         icon: <Edit className="h-4 w-4 mr-2" />,
-        onClick: fn(),
+        onClick: action('onClick'),
         variant: 'outline' as const,
       },
     ],
@@ -322,7 +321,7 @@ const sections = [
         id: 'manage-team',
         label: 'Manage',
         icon: <Users className="h-4 w-4 mr-2" />,
-        onClick: fn(),
+        onClick: action('onClick'),
         variant: 'outline' as const,
       },
     ],
@@ -379,7 +378,7 @@ export const CustomLayout: Story = {
         id: 'settings',
         label: 'Settings',
         icon: <Settings className="h-4 w-4 mr-2" />,
-        onClick: fn(),
+        onClick: action('onClick'),
         variant: 'outline' as const,
       },
     ],
@@ -477,14 +476,14 @@ export const EnterpriseScale: Story = {
         id: 'export',
         label: 'Export',
         icon: <Download className="h-4 w-4 mr-2" />,
-        onClick: fn(),
+        onClick: action('onClick'),
         variant: 'outline' as const,
       },
       {
         id: 'settings',
         label: 'Settings',
         icon: <Settings className="h-4 w-4 mr-2" />,
-        onClick: fn(),
+        onClick: action('onClick'),
         variant: 'ghost' as const,
       },
     ],

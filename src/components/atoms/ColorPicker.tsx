@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from './button';
+import { Input } from './input';
 import { cn } from '@/lib/utils';
 
 interface ColorPickerProps {

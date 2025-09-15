@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components';
+import { Card } from '@/components';
+import { Badge } from '@/components';
 import { SearchBox } from '@/components/molecules/SearchBox';
 import { FilterChip } from '@/components/molecules/FilterChip';
 import { 

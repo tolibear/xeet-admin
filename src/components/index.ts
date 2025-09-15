@@ -12,15 +12,9 @@
  * import { ResearchHub } from '@/components'; // System
  */
 
-// Atomic Level Exports
+// Atomic Level Exports (includes all shadcn/ui components properly organized)
 export * from "./atoms";
 export * from "./molecules";
 export * from "./organisms";
-// export * from "./templates";     // Will be enabled when templates are added
+export * from "./templates";
 // export * from "./systems";       // Will be enabled when systems are added
-
-// Legacy shadcn/ui exports for backward compatibility
-export * from "./ui/button";
-export * from "./ui/input";
-export * from "./ui/badge";
-export * from "./ui/card";
