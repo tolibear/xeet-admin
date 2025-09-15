@@ -40,7 +40,7 @@ TopicEditor is a comprehensive organism for managing topics with keywords, synon
 - Unsaved changes tracking
 
 **Performance:**
-- Optimized for galaxy-scale keyword management
+- Optimized for enterprise-scale keyword management
 - Debounced input handling for smooth UX
 - Efficient re-rendering with proper state isolation
         `,
@@ -306,7 +306,7 @@ export const ComplexTopic: Story = {
         story: `
 A complex topic with many keywords demonstrating scalability.
 
-**Galaxy-Scale Features:**
+**Enterprise-Scale Features:**
 - Handles large numbers of keywords efficiently
 - Keyword management remains smooth with many items
 - Color-coded organization helps with visual management

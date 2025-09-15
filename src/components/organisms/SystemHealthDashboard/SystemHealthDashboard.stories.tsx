@@ -2,11 +2,11 @@
  * System Health Dashboard Stories
  * 
  * Atomic Design Level: ORGANISM
- * Phase 5: Galaxy-Scale Operations  
+ * Phase 5: Enterprise-Scale Operations  
  * 
  * Storybook stories for the SystemHealthDashboard organism demonstrating
  * various system health states, alert conditions, and performance scenarios
- * in a galaxy-scale admin environment.
+ * in an enterprise-scale admin environment.
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
@@ -119,7 +119,7 @@ const meta = {
         component: `
 # System Health Dashboard Organism
 
-A comprehensive system health monitoring dashboard for galaxy-scale operations.
+A comprehensive system health monitoring dashboard for enterprise-scale operations.
 
 ## Features
 
@@ -142,7 +142,7 @@ This organism composes multiple molecules and atoms:
 ## Usage
 
 Ideal for admin dashboards requiring comprehensive system monitoring
-and operational oversight at galaxy scale.
+and operational oversight at enterprise scale.
 
 ## Performance
 

@@ -1,6 +1,6 @@
 /**
  * Pagination Organism
- * Server-side cursor-based pagination for galaxy-scale datasets
+ * Server-side cursor-based pagination for enterprise-scale datasets
  * 
  * Atomic Composition:
  * - Uses Button atoms for navigation

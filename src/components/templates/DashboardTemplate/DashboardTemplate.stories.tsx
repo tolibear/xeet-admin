@@ -286,11 +286,11 @@ export const NoHeader: Story = {
   },
 };
 
-// Galaxy Scale - Complex dashboard with many sections
-export const GalaxyScale: Story = {
+// Enterprise Scale - Complex dashboard with many sections
+export const EnterpriseScale: Story = {
   args: {
     title: 'Enterprise Dashboard',
-    description: 'Comprehensive galaxy-scale dashboard for large organizations',
+    description: 'Comprehensive enterprise-scale dashboard for large organizations',
     headerActions: (
       <>
         <Button variant="outline" size="sm">Filters</Button>
@@ -371,10 +371,10 @@ export const GalaxyScale: Story = {
     sectioned: true,
   },
   parameters: {
-    viewport: { defaultViewport: 'galaxyScale' },
+    viewport: { defaultViewport: 'enterpriseScale' },
     docs: {
       description: {
-        story: 'Galaxy-scale dashboard with multiple sections, complex layouts, and comprehensive data visualization.',
+        story: 'Enterprise-scale dashboard with multiple sections, complex layouts, and comprehensive data visualization.',
       },
     },
   },

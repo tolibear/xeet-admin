@@ -162,7 +162,7 @@ export const DASHBOARD_LAYOUTS = {
     gridConfig: { columns: 2, gap: 6 },
   },
   
-  // Wide layout for galaxy-scale dashboards
+  // Wide layout for enterprise-scale dashboards
   wide: {
     layout: 'grid' as const,
     gridConfig: { columns: 3, gap: 6 },

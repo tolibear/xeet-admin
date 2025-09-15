@@ -2,14 +2,14 @@
  * Bulk Operations Manager Organism
  * 
  * Atomic Design Level: ORGANISM
- * Phase 5: Galaxy-Scale Operations
+ * Phase 5: Enterprise-Scale Operations
  * 
- * Comprehensive bulk operations management system for galaxy-scale data
+ * Comprehensive bulk operations management system for enterprise-scale data
  * processing and batch operations. Provides safe, auditable, and efficient
  * bulk data management with progress tracking and rollback capabilities.
  * 
  * Features:
- * - Galaxy-scale bulk data operations (delete, update, rescore, reindex)
+ * - Enterprise-scale bulk data operations (delete, update, rescore, reindex)
  * - Safety controls and confirmation workflows
  * - Progress tracking and real-time status monitoring
  * - Rollback capabilities and operation history
@@ -643,7 +643,7 @@ export const BulkOperationsManager: React.FC<BulkOperationsManagerProps> = ({
         <div>
           <h1 className="text-2xl font-bold">Bulk Operations</h1>
           <p className="text-muted-foreground">
-            Galaxy-scale data processing and batch operations
+            Enterprise-scale data processing and batch operations
           </p>
         </div>
         

@@ -188,8 +188,8 @@ export const ProcessingJobs: Story = {
   },
 };
 
-// Galaxy Scale - Large number of columns and complex exports
-export const GalaxyScale: Story = {
+// Enterprise Scale - Large number of columns and complex exports
+export const EnterpriseScale: Story = {
   args: {
     availableColumns: [
       ...mockColumns,
@@ -245,10 +245,10 @@ export const GalaxyScale: Story = {
     })),
   },
   parameters: {
-    viewport: { defaultViewport: 'galaxyScale' },
+    viewport: { defaultViewport: 'enterpriseScale' },
     docs: {
       description: {
-        story: 'Galaxy-scale ExportBuilder with many columns and export jobs to test performance and scalability.',
+        story: 'Enterprise-scale ExportBuilder with many columns and export jobs to test performance and scalability.',
       },
     },
   },

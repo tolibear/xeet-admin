@@ -1,6 +1,6 @@
 /**
  * DataTable Organism - Tests
- * Galaxy-scale data table testing
+ * Enterprise-scale data table testing
  */
 
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';

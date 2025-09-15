@@ -2,9 +2,9 @@
  * System Health Dashboard Organism - Export Module
  * 
  * Atomic Design Level: ORGANISM  
- * Phase 5: Galaxy-Scale Operations
+ * Phase 5: Enterprise-Scale Operations
  * 
- * Comprehensive system health monitoring dashboard for galaxy-scale operations.
+ * Comprehensive system health monitoring dashboard for enterprise-scale operations.
  * Provides real-time system metrics, service status monitoring, performance
  * visualization, and alert management for admin operations.
  */

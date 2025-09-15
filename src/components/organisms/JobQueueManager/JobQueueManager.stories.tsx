@@ -2,11 +2,11 @@
  * Job Queue Manager Stories
  * 
  * Atomic Design Level: ORGANISM
- * Phase 5: Galaxy-Scale Operations
+ * Phase 5: Enterprise-Scale Operations
  * 
  * Storybook stories for the JobQueueManager organism demonstrating
  * various queue states, job management scenarios, and operational
- * conditions in a galaxy-scale background processing environment.
+ * conditions in an enterprise-scale background processing environment.
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
@@ -177,7 +177,7 @@ const meta = {
         component: `
 # Job Queue Manager Organism
 
-A comprehensive job queue management system for galaxy-scale background processing operations.
+A comprehensive job queue management system for enterprise-scale background processing operations.
 
 ## Features
 
@@ -202,7 +202,7 @@ This organism composes multiple molecules and atoms:
 ## Usage
 
 Essential for admin dashboards requiring comprehensive background job
-monitoring and management at galaxy scale.
+monitoring and management at enterprise scale.
 
 ## Performance
 

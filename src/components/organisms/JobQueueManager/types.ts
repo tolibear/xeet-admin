@@ -2,7 +2,7 @@
  * Job Queue Manager Types
  * 
  * Atomic Design Level: ORGANISM
- * Phase 5: Galaxy-Scale Operations
+ * Phase 5: Enterprise-Scale Operations
  * 
  * Type definitions for job queue management system components.
  */

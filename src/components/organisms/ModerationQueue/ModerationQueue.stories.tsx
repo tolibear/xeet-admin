@@ -20,7 +20,7 @@ ModerationQueue is a comprehensive organism for managing leaderboard moderation 
 - **Priority Management**: Visual priority indicators with urgent flags
 - **Audit Trail**: Complete history of all actions on each moderation item
 
-**Galaxy-Scale Capabilities:**
+**Enterprise-Scale Capabilities:**
 - Handles thousands of moderation items with virtualized scrolling
 - Real-time updates and notifications for new submissions
 - Comprehensive search and filtering for large queues

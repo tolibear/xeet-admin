@@ -1,6 +1,6 @@
 /**
  * DataTable Organism - Storybook Stories
- * Galaxy-scale data table testing and documentation
+ * Enterprise-scale data table testing and documentation
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
@@ -155,7 +155,7 @@ const meta = {
     docs: {
       description: {
         component: `
-DataTable is a galaxy-scale organism that handles large datasets efficiently using virtualization.
+DataTable is an enterprise-scale organism that handles large datasets efficiently using virtualization.
 
 **Key Features:**
 - Virtualized rendering for 100k+ rows
@@ -200,8 +200,8 @@ export const Default: Story = {
   },
 };
 
-// Galaxy-scale virtualized table
-export const GalaxyScale: Story = {
+// Enterprise-scale virtualized table
+export const EnterpriseScale: Story = {
   args: {
     data: generateMockPosts(5000),
     columns: postColumns,
@@ -210,7 +210,7 @@ export const GalaxyScale: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Virtualized table handling 5,000 rows efficiently for galaxy-scale performance.',
+        story: 'Virtualized table handling 5,000 rows efficiently for enterprise-scale performance.',
       },
     },
   },

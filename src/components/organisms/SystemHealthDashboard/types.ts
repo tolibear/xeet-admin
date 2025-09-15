@@ -2,7 +2,7 @@
  * System Health Dashboard Types
  * 
  * Atomic Design Level: ORGANISM
- * Phase 5: Galaxy-Scale Operations
+ * Phase 5: Enterprise-Scale Operations
  * 
  * Type definitions for system health monitoring dashboard components.
  */

@@ -1,6 +1,6 @@
 /**
  * Xeet Admin Platform - Application Constants
- * Galaxy-scale configuration and constants
+ * Enterprise-scale configuration and constants
  */
 
 // Performance Targets (from PRD)
@@ -36,7 +36,7 @@ export const ATOMIC_LEVELS = {
   ORGANISM: "organism",
   TEMPLATE: "template",
   SYSTEM: "system",
-  GALAXY: "galaxy",
+  APPLICATION: "application",
 } as const;
 
 // Multi-tenancy

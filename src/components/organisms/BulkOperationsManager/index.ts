@@ -2,9 +2,9 @@
  * Bulk Operations Manager Organism - Export Module
  * 
  * Atomic Design Level: ORGANISM  
- * Phase 5: Galaxy-Scale Operations
+ * Phase 5: Enterprise-Scale Operations
  * 
- * Comprehensive bulk operations management system for galaxy-scale data
+ * Comprehensive bulk operations management system for enterprise-scale data
  * processing and batch operations with safety controls and audit trails.
  */
 

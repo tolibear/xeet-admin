@@ -2,15 +2,15 @@
  * Re-scoring Manager Organism
  * 
  * Atomic Design Level: ORGANISM
- * Phase 5: Galaxy-Scale Operations
+ * Phase 5: Enterprise-Scale Operations
  * 
- * Comprehensive re-scoring and reindexing management system for galaxy-scale
+ * Comprehensive re-scoring and reindexing management system for enterprise-scale
  * data integrity operations. Provides tools for score recalculation, index
  * rebuilding, and data consistency management with progress tracking and
  * rollback capabilities.
  * 
  * Features:
- * - Galaxy-scale re-scoring operations with progress tracking
+ * - Enterprise-scale re-scoring operations with progress tracking
  * - Index rebuilding and data consistency management  
  * - Batch processing with configurable chunk sizes
  * - Rollback capabilities and operation history

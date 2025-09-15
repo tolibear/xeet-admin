@@ -1,6 +1,6 @@
 /**
  * Pagination Organism - Type Definitions
- * Server-side cursor-based pagination for galaxy-scale datasets
+ * Server-side cursor-based pagination for enterprise-scale datasets
  */
 
 import { BaseOrganismProps } from "@/lib/types";

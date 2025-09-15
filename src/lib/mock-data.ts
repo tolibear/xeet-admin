@@ -44,7 +44,7 @@ faker.seed(2024);
  * Mock Data Generation System for Xeet Admin Platform
  *
  * Generates realistic, scalable mock data for testing and development
- * at galaxy scale (500k+ posts, 1.9M signals, 493k users)
+ * at enterprise scale (500k+ posts, 1.9M signals, 493k users)
  */
 
 // Platform definitions
@@ -344,7 +344,7 @@ export function generateLeaderboardEntry(rank: number, posts: Post[]): Leaderboa
   };
 }
 
-// Batch generation functions for galaxy-scale data
+// Batch generation functions for enterprise-scale data
 export function generateUsers(count: number): User[] {
   return Array.from({ length: count }, () => generateUser());
 }
@@ -366,9 +366,9 @@ export function generateTopics(count: number): Topic[] {
   return Array.from({ length: count }, generateTopic);
 }
 
-// Galaxy-scale dataset generators
-export function generateGalaxyScaleData() {
-  console.log("🌌 Generating galaxy-scale mock data...");
+// Enterprise-scale dataset generators
+export function generateEnterpriseScaleData() {
+  console.log("🏢 Generating enterprise-scale mock data...");
 
   // Generate organizations
   const organizations = generateOrganizations(10);
@@ -392,7 +392,7 @@ export function generateGalaxyScaleData() {
   );
   console.log(`✓ Generated ${leaderboards.length} leaderboards`);
 
-  console.log("🎉 Galaxy-scale mock data generation complete!");
+  console.log("🎉 Enterprise-scale mock data generation complete!");
 
   return {
     organizations,
@@ -764,7 +764,7 @@ export function generateNetworkData(nodeCount: number = 50, linkDensity: number 
   return { nodes, links };
 }
 
-// Phase 5: System Health Galaxy Mock Data Generators
+// Phase 5: System Health Enterprise Mock Data Generators
 
 /**
  * Generate realistic system health metrics
@@ -1083,7 +1083,7 @@ export const sampleData = {
   get sampleNetworkClusters() {
     return Array.from({ length: 3 }, () => generateNetworkCluster(this.sampleNetworkData.nodes));
   },
-  // Phase 5: System Health Galaxy data
+  // Phase 5: System Health Enterprise data
   sampleSystemHealthMetrics: generateSystemHealthMetrics(),
   sampleSystemServices: Array.from({ length: 10 }, () => generateSystemService()),
   sampleJobQueues: Array.from({ length: 6 }, () => generateJobQueue()),

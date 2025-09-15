@@ -1,11 +1,11 @@
 # Xeet Admin Platform - Atomic Design System
 
-This directory contains all UI components organized using **Atomic Design methodology**, ensuring consistent, scalable, and maintainable components from the smallest atoms to complete galaxy-scale systems.
+This directory contains all UI components organized using **Atomic Design methodology**, ensuring consistent, scalable, and maintainable components from the smallest atoms to complete enterprise-scale systems.
 
 ## 🏗️ Atomic Design Hierarchy
 
 ```
-🌌 Galaxy    - Complete application ecosystems (App-level routing, state)
+🏢 Application - Complete application ecosystems (App-level routing, state)
 🌟 Systems   - Feature-complete modules (Research Hub, Leaderboards)
 🏛️  Templates - Page layouts and complex compositions
 🧬 Organisms - Complex UI components (DataTable, ChartBuilder)
@@ -86,7 +86,7 @@ This directory contains all UI components organized using **Atomic Design method
 - **Purpose**: Complex business logic components
 - **Dependencies**: Multiple molecules and atoms
 - **States**: Handle own data and state management
-- **Performance**: Optimized for galaxy scale (100k+ rows)
+- **Performance**: Optimized for enterprise scale (100k+ rows)
 - **Examples**: DataTable, ChartBuilder, ScoreInspector
 
 **Rules:**
@@ -115,7 +115,7 @@ This directory contains all UI components organized using **Atomic Design method
 
 - **Purpose**: Complete feature modules
 - **Dependencies**: All lower levels
-- **Scale**: Galaxy-scale performance (500k+ records)
+- **Scale**: Enterprise-scale performance (500k+ records)
 - **Integration**: Cross-system compatibility
 - **Examples**: ResearchHub, LeaderboardSystem
 
@@ -145,7 +145,7 @@ This directory contains all UI components organized using **Atomic Design method
 - [ ] **Molecules**: 2-5 atoms max, single responsibility
 - [ ] **Organisms**: Business logic, data handling
 - [ ] **Templates**: Layout only, no business logic
-- [ ] **Systems**: Complete workflows, galaxy-scale
+- [ ] **Systems**: Complete workflows, enterprise-scale
 
 ## 🔧 Usage Examples
 
@@ -243,7 +243,7 @@ ComponentName/
 - Integration tests for organisms and systems
 - Visual regression tests via Storybook
 - Accessibility tests with @testing-library/jest-dom
-- Performance tests for galaxy-scale components
+- Performance tests for enterprise-scale components
 
 ## 📚 Documentation
 
@@ -260,8 +260,8 @@ All components must be documented in:
 - **Component Rendering**: < 100ms for organisms
 - **Table Interactions**: < 250ms for 100k rows
 - **Bundle Size**: Optimized with tree-shaking
-- **Memory Usage**: Efficient for galaxy-scale data
+- **Memory Usage**: Efficient for enterprise-scale data
 
 ---
 
-This atomic design system ensures that every component is built to scale from individual atoms to complete galaxy-scale systems, maintaining consistency, performance, and maintainability throughout the Xeet Admin Platform.
+This atomic design system ensures that every component is built to scale from individual atoms to complete enterprise-scale systems, maintaining consistency, performance, and maintainability throughout the Xeet Admin Platform.

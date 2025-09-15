@@ -1,6 +1,6 @@
 /**
  * DataTable Organism
- * Galaxy-scale virtualized data table for large datasets (100k+ rows)
+ * Enterprise-scale virtualized data table for large datasets (100k+ rows)
  * 
  * Atomic Composition:
  * - Uses Button atoms for controls
@@ -143,7 +143,7 @@ export const DataTable = forwardRef<DataTableRef, DataTableProps>(({
 
   const { rows } = table.getRowModel();
 
-  // Virtualization for galaxy-scale performance
+  // Virtualization for enterprise-scale performance
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
     getScrollElement: () => tableContainerRef.current,

@@ -154,8 +154,8 @@ export const ComplexView: Story = {
   },
 };
 
-// Galaxy Scale - Large dataset with many fields
-export const GalaxyScale: Story = {
+// Enterprise Scale - Large dataset with many fields
+export const EnterpriseScale: Story = {
   args: {
     availableFields: [
       ...mockFields,
@@ -176,7 +176,7 @@ export const GalaxyScale: Story = {
     ],
     view: {
       name: 'Comprehensive Analysis',
-      description: 'Galaxy-scale view with extensive filtering and column selection',
+      description: 'Enterprise-scale view with extensive filtering and column selection',
       filters: [
         { id: 'f1', field: 'score', operator: 'greater_than', value: '60' },
         { id: 'f2', field: 'engagement_rate', operator: 'greater_than', value: '5' },
@@ -194,10 +194,10 @@ export const GalaxyScale: Story = {
     isEditing: true,
   },
   parameters: {
-    viewport: { defaultViewport: 'galaxyScale' },
+    viewport: { defaultViewport: 'enterpriseScale' },
     docs: {
       description: {
-        story: 'Galaxy-scale ViewBuilder with extensive field options and complex filtering capabilities.',
+        story: 'Enterprise-scale ViewBuilder with extensive field options and complex filtering capabilities.',
       },
     },
   },

@@ -18,7 +18,7 @@ EmbeddableIframe is a comprehensive template for generating embeddable iframe co
 - **Embed Code Generation**: Automatic iframe code generation with security attributes
 - **Security Testing**: Built-in security and performance tests
 - **Analytics Integration**: Support for multiple analytics providers and custom event tracking
-- **Galaxy-Scale Distribution**: Designed for high-traffic embeds across thousands of websites
+- **Enterprise-Scale Distribution**: Designed for high-traffic embeds across thousands of websites
 
 **Configuration Categories:**
 - **Display**: Theme, layout, branding, refresh settings
@@ -26,7 +26,7 @@ EmbeddableIframe is a comprehensive template for generating embeddable iframe co
 - **Security**: Sandbox attributes, domain restrictions, CSP
 - **Analytics**: View tracking, click tracking, custom events
 
-**Galaxy-Scale Capabilities:**
+**Enterprise-Scale Capabilities:**
 - Handles millions of embed views across thousands of domains
 - Advanced security controls for safe embedding
 - Performance optimization with configurable refresh rates

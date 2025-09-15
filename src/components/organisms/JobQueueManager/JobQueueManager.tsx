@@ -2,9 +2,9 @@
  * Job Queue Manager Organism
  * 
  * Atomic Design Level: ORGANISM
- * Phase 5: Galaxy-Scale Operations
+ * Phase 5: Enterprise-Scale Operations
  * 
- * Comprehensive job queue management system for galaxy-scale operations.
+ * Comprehensive job queue management system for enterprise-scale operations.
  * Provides real-time queue monitoring, job lifecycle tracking, retry controls,
  * and batch job management for scalable background processing.
  * 

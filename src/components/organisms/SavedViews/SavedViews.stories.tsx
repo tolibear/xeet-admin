@@ -191,8 +191,8 @@ export const DifferentUser: Story = {
   },
 };
 
-// Galaxy Scale - Large number of views
-export const GalaxyScale: Story = {
+// Enterprise Scale - Large number of views
+export const EnterpriseScale: Story = {
   args: {
     views: Array.from({ length: 50 }, (_, i) => ({
       id: `view-${i + 1}`,
@@ -222,10 +222,10 @@ export const GalaxyScale: Story = {
     currentUserId: 'user-123',
   },
   parameters: {
-    viewport: { defaultViewport: 'galaxyScale' },
+    viewport: { defaultViewport: 'enterpriseScale' },
     docs: {
       description: {
-        story: 'Galaxy-scale SavedViews with 50+ views to test performance and filtering capabilities.',
+        story: 'Enterprise-scale SavedViews with 50+ views to test performance and filtering capabilities.',
       },
     },
   },

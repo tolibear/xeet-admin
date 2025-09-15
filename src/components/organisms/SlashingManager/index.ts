@@ -2,9 +2,9 @@
  * Slashing Manager Organism - Export Module
  * 
  * Atomic Design Level: ORGANISM  
- * Phase 5: Galaxy-Scale Operations
+ * Phase 5: Enterprise-Scale Operations
  * 
- * Comprehensive slashing and score management system for galaxy-scale content
+ * Comprehensive slashing and score management system for enterprise-scale content
  * moderation operations with audit trails and safety controls.
  */
 

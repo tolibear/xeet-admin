@@ -15,7 +15,7 @@
  * - No business logic in atoms/molecules
  * - Error handling and loading states
  * - Performance optimized (virtualization, memoization)
- * - Galaxy-scale ready (100k+ rows)
+ * - Enterprise-scale ready (100k+ rows)
  */
 
 // Dashboard and Overview Organisms
@@ -203,7 +203,7 @@ export type {
   RetweetStatsProps
 } from './CollapsibleRetweet';
 
-// System Health Galaxy Organisms (Phase 5)
+// System Health Enterprise Organisms (Phase 5)
 export { SystemHealthDashboard } from './SystemHealthDashboard';
 export type {
   SystemHealthDashboardProps,

@@ -63,7 +63,7 @@ export default function SystemPage({ params }: SystemPageProps) {
           <div>
             <h1 className="text-4xl font-bold">System Health</h1>
             <p className="text-muted-foreground mt-2">
-              Galaxy-scale operations monitoring and control
+              Enterprise-scale operations monitoring and control
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -86,7 +86,7 @@ export default function SystemPage({ params }: SystemPageProps) {
           <TabsContent value="overview" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <Card className="p-6">
-                <h3 className="text-lg font-semibold mb-4">Phase 5 Galaxy Components</h3>
+                <h3 className="text-lg font-semibold mb-4">Phase 5 Enterprise Components</h3>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <span>System Health Dashboard</span>

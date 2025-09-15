@@ -1,6 +1,6 @@
 /**
  * Atomic Design System - Design Tokens
- * Foundation for all atomic components from atoms to galaxy scale
+ * Foundation for all atomic components from atoms to enterprise scale
  */
 
 // Atomic Spacing System (consistent at all scales)
@@ -11,9 +11,9 @@ export const spacing = {
   md: "0.75rem", // 12px - default organism spacing
   lg: "1rem", // 16px - template spacing
   xl: "1.5rem", // 24px - system spacing
-  "2xl": "2rem", // 32px - galaxy spacing
-  "3xl": "3rem", // 48px - large galaxy spacing
-  "4xl": "4rem", // 64px - massive galaxy spacing
+  "2xl": "2rem", // 32px - enterprise spacing
+  "3xl": "3rem", // 48px - large enterprise spacing
+  "4xl": "4rem", // 64px - massive enterprise spacing
 } as const;
 
 // Atomic Typography Scale
@@ -35,9 +35,9 @@ export const typography = {
   "4xl": "text-4xl", // 36px - page headers
   "5xl": "text-5xl", // 48px - template heroes
 
-  // Systems & Galaxy
+  // Systems & Application
   "6xl": "text-6xl", // 60px - system headers
-  "7xl": "text-7xl", // 72px - galaxy headers
+  "7xl": "text-7xl", // 72px - application headers
 } as const;
 
 // Atomic Motion System
@@ -111,5 +111,5 @@ export const zIndex = {
   20: "z-20", // organisms
   30: "z-30", // templates
   40: "z-40", // systems
-  50: "z-50", // galaxy overlays
+  50: "z-50", // application overlays
 } as const;

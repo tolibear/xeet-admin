@@ -39,7 +39,7 @@ KeywordCoverageHeatmap is a sophisticated data visualization organism for analyz
 - **Trend Mode**: Displays keyword performance changes over time
 
 **Performance:**
-- Optimized for galaxy-scale datasets (1000+ keywords)
+- Optimized for enterprise-scale datasets (1000+ keywords)
 - Efficient filtering and grouping with minimal re-renders
 - Smooth animations and transitions for better UX
         `,
@@ -239,7 +239,7 @@ export const LargeDataset: Story = {
     docs: {
       description: {
         story: `
-Galaxy-scale performance with large keyword datasets.
+Enterprise-scale performance with large keyword datasets.
 
 **Scalability Features:**
 - Smooth rendering of 100+ keywords

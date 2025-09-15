@@ -20,7 +20,7 @@ export default function HomePage() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <Card>
             <CardHeader>
-              <CardTitle className="text-primary">🌌 Galaxy Scale</CardTitle>
+              <CardTitle className="text-primary">🏢 Enterprise Scale</CardTitle>
               <CardDescription>Built for 500k+ posts, 1.9M signals, 493k users</CardDescription>
             </CardHeader>
             <CardContent>

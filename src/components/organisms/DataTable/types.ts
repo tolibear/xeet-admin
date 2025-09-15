@@ -1,6 +1,6 @@
 /**
  * DataTable Organism - Type Definitions
- * Galaxy-scale virtualized data table for large datasets
+ * Enterprise-scale virtualized data table for large datasets
  */
 
 import { ColumnDef, Table } from "@tanstack/react-table";
@@ -26,7 +26,7 @@ export interface DataTableProps<T = any> extends BaseOrganismProps {
   data: T[];
   columns: DataTableColumn<T>[];
   
-  // Galaxy-scale performance options
+  // Enterprise-scale performance options
   virtualized?: boolean;
   rowHeight?: number;
   overscan?: number;

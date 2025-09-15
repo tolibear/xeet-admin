@@ -2,7 +2,7 @@
  * Logs Viewer Types
  * 
  * Atomic Design Level: ORGANISM
- * Phase 5: Galaxy-Scale Operations
+ * Phase 5: Enterprise-Scale Operations
  * 
  * Type definitions for log viewing and analysis system components.
  */

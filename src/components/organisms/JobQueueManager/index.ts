@@ -2,9 +2,9 @@
  * Job Queue Manager Organism - Export Module
  * 
  * Atomic Design Level: ORGANISM  
- * Phase 5: Galaxy-Scale Operations
+ * Phase 5: Enterprise-Scale Operations
  * 
- * Comprehensive job queue management system for galaxy-scale background
+ * Comprehensive job queue management system for enterprise-scale background
  * processing operations. Provides real-time monitoring, lifecycle tracking,
  * retry mechanisms, and bulk job management capabilities.
  */

@@ -20,7 +20,7 @@ perfect accessibility compliance (WCAG 2.1 AA).
 - **Zero Dependencies**: Works in complete isolation
 - **All States**: loading, error, disabled, hover, focus variants
 - **Perfect Accessibility**: ARIA compliant, keyboard navigation
-- **Galaxy Scale Ready**: Performs at any scale from atom to galaxy
+- **Enterprise Scale Ready**: Performs at any scale from atom to application
 
 ### Usage:
 \`\`\`tsx
@@ -274,7 +274,7 @@ export const WithAriaLabel: Story = {
   },
 };
 
-// Galaxy Scale Examples
+// Enterprise Scale Examples
 export const HighFrequencyAction: Story = {
   args: {
     children: "Quick Action",
@@ -283,12 +283,12 @@ export const HighFrequencyAction: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Optimized for high-frequency interactions in galaxy-scale data interfaces.",
+        story: "Optimized for high-frequency interactions in enterprise-scale data interfaces.",
       },
     },
   },
   play: async ({ args }) => {
-    // Could add interaction testing here for galaxy-scale performance
+    // Could add interaction testing here for enterprise-scale performance
     console.log("Button optimized for 100k+ interactions per session");
   },
 };

@@ -465,8 +465,8 @@ export const DifferentStatuses: Story = {
   },
 };
 
-// Galaxy Scale - Complex detail page
-export const GalaxyScale: Story = {
+// Enterprise Scale - Complex detail page
+export const EnterpriseScale: Story = {
   args: {
     title: 'Enterprise Project Management',
     subtitle: 'Comprehensive project overview with multi-team coordination and advanced analytics',
@@ -639,7 +639,7 @@ export const GalaxyScale: Story = {
       <div className="space-y-6">
         <MockSidebar />
         
-        {/* Additional galaxy-scale sidebar content */}
+        {/* Additional enterprise-scale sidebar content */}
         <div>
           <h3 className="font-semibold mb-3">Stakeholders</h3>
           <div className="space-y-2">
@@ -683,10 +683,10 @@ export const GalaxyScale: Story = {
     ...DETAIL_PAGE_LAYOUTS.tabs,
   },
   parameters: {
-    viewport: { defaultViewport: 'galaxyScale' },
+    viewport: { defaultViewport: 'enterpriseScale' },
     docs: {
       description: {
-        story: 'Galaxy-scale detail page with comprehensive project management capabilities, extensive data, and complex interactions.',
+        story: 'Enterprise-scale detail page with comprehensive project management capabilities, extensive data, and complex interactions.',
       },
     },
   },

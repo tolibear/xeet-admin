@@ -2,11 +2,11 @@
  * Logs Viewer Stories
  * 
  * Atomic Design Level: ORGANISM
- * Phase 5: Galaxy-Scale Operations
+ * Phase 5: Enterprise-Scale Operations
  * 
  * Storybook stories for the LogsViewer organism demonstrating
  * various logging scenarios, filtering capabilities, and real-time
- * monitoring conditions in a galaxy-scale operations environment.
+ * monitoring conditions in an enterprise-scale operations environment.
  */
 
 import type { Meta, StoryObj } from '@storybook/react';
@@ -108,7 +108,7 @@ const meta = {
         component: `
 # Logs Viewer Organism
 
-A comprehensive log viewing system for galaxy-scale operations monitoring.
+A comprehensive log viewing system for enterprise-scale operations monitoring.
 
 ## Features
 
@@ -133,7 +133,7 @@ This organism composes multiple molecules and atoms:
 ## Usage
 
 Essential for admin dashboards requiring comprehensive log monitoring,
-debugging, and operational oversight at galaxy scale.
+debugging, and operational oversight at enterprise scale.
 
 ## Performance
 

@@ -4,14 +4,14 @@
  * Complete feature modules.
  * Full user workflows and functionality.
  * Handle all edge cases and error states.
- * Performance optimized for galaxy scale.
+ * Performance optimized for enterprise scale.
  *
  * Examples: ResearchHub, LeaderboardSystem, LiveFeedSystem, SystemHealthDashboard
  *
  * Principles:
  * - Complete feature workflows
  * - Handle all edge cases and error states
- * - Galaxy-scale performance (500k+ records)
+ * - Enterprise-scale performance (500k+ records)
  * - Cross-system integration ready
  * - Real-time updates where needed
  * - Comprehensive error handling

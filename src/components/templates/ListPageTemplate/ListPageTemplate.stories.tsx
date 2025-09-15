@@ -277,8 +277,8 @@ export const FullWidth: Story = {
   },
 };
 
-// Galaxy Scale - Complex data management interface
-export const GalaxyScale: Story = {
+// Enterprise Scale - Complex data management interface
+export const EnterpriseScale: Story = {
   args: {
     title: 'Enterprise Data Management',
     description: 'Manage large-scale datasets with advanced filtering and bulk operations',
@@ -302,7 +302,7 @@ export const GalaxyScale: Story = {
       <div className="space-y-6">
         <MockSidebar />
         
-        {/* Additional filters for galaxy scale */}
+        {/* Additional filters for enterprise scale */}
         <div>
           <h3 className="font-semibold mb-3">Advanced Filters</h3>
           <div className="space-y-3">
@@ -472,10 +472,10 @@ export const GalaxyScale: Story = {
     sectioned: false,
   },
   parameters: {
-    viewport: { defaultViewport: 'galaxyScale' },
+    viewport: { defaultViewport: 'enterpriseScale' },
     docs: {
       description: {
-        story: 'Galaxy-scale list page with extensive filtering, bulk operations, and large dataset management capabilities.',
+        story: 'Enterprise-scale list page with extensive filtering, bulk operations, and large dataset management capabilities.',
       },
     },
   },

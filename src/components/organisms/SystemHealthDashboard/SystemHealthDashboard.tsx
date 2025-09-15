@@ -2,10 +2,10 @@
  * System Health Dashboard Organism
  * 
  * Atomic Design Level: ORGANISM
- * Phase 5: Galaxy-Scale Operations
+ * Phase 5: Enterprise-Scale Operations
  * 
  * Complete system health monitoring dashboard displaying real-time metrics,
- * service status, performance indicators, and system uptime in a galaxy-scale 
+ * service status, performance indicators, and system uptime in an enterprise-scale 
  * admin interface.
  * 
  * Features:

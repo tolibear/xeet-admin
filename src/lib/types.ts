@@ -1,10 +1,10 @@
 /**
  * Xeet Admin Platform - Type Definitions
- * Galaxy-scale TypeScript types for atomic design system
+ * Enterprise-scale TypeScript types for atomic design system
  */
 
 // Atomic Design System Types
-export type AtomicLevel = "atom" | "molecule" | "organism" | "template" | "system" | "galaxy";
+export type AtomicLevel = "atom" | "molecule" | "organism" | "template" | "system" | "application";
 
 export type ComponentState = "loading" | "error" | "success" | "idle" | "disabled";
 
@@ -443,7 +443,7 @@ export interface LiveFeedFilters {
   };
 }
 
-// System Health Galaxy Types (Phase 5)
+// System Health Enterprise Types (Phase 5)
 export interface SystemHealthMetrics {
   /** System uptime in seconds */
   uptime: number;
