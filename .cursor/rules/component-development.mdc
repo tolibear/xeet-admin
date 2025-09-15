@@ -1,0 +1,168 @@
+---
+globs: "*.tsx,*.jsx"
+description: "Component development standards and patterns for React components"
+---
+
+# Component Development Standards
+
+## Component Architecture
+
+### 1. Component Hierarchy
+```
+Page Components (app/[org]/*/page.tsx)
+  ↓
+Layout Components (PageHeader, Toolbar, FilterBar)
+  ↓
+Feature Components (DataTable, ChartCard, ViewBuilder)
+  ↓
+UI Components (Button, Input, Dialog from shadcn/ui)
+```
+
+### 2. Component Patterns
+
+#### Server Components (Default)
+```tsx
+// Use for data fetching, static content, layouts
+export default async function ResearchPage({ params }) {
+  const { org } = await params;
+  const views = await getViews(org);
+  
+  return (
+    <PageHeader title="Research Hub">
+      <ViewsList views={views} />
+    </PageHeader>
+  );
+}
+```
+
+#### Client Components (Interactive)
+```tsx
+"use client"
+// Only when needed for interactivity, state, or browser APIs
+export function ViewBuilder() {
+  const [query, setQuery] = useState();
+  // Interactive component logic
+}
+```
+
+### 3. Component API Design
+
+#### Props Interface
+```tsx
+interface ComponentProps {
+  // Required props first
+  data: DataType;
+  onAction: (item: DataType) => void;
+  
+  // Optional props with defaults
+  variant?: 'default' | 'compact';
+  className?: string;
+  
+  // Children and render props last
+  children?: React.ReactNode;
+  renderItem?: (item: DataType) => React.ReactNode;
+}
+```
+
+#### Prop Validation
+- Use TypeScript interfaces for all props
+- Provide default values for optional props
+- Use discriminated unions for variant props
+
+### 4. State Management
+
+#### Local State (useState)
+```tsx
+// For component-specific, short-lived state
+const [isOpen, setIsOpen] = useState(false);
+const [selectedItems, setSelectedItems] = useState<string[]>([]);
+```
+
+#### Server State (TanStack Query)
+```tsx
+// For data fetching and caching
+const { data: views, isLoading } = useQuery({
+  queryKey: ['views', orgId],
+  queryFn: () => getViews(orgId),
+});
+```
+
+#### Global State (Zustand Store)
+```tsx
+// For app-wide state like user preferences, theme
+const { theme, setTheme } = useThemeStore();
+```
+
+### 5. Event Handling
+
+#### Naming Convention
+```tsx
+// Handler functions: handle[Event]
+const handleSubmit = (data: FormData) => { };
+const handleSelectionChange = (items: string[]) => { };
+
+// Callback props: on[Event]
+interface Props {
+  onSubmit: (data: FormData) => void;
+  onSelectionChange: (items: string[]) => void;
+}
+```
+
+### 6. Component Export Patterns
+
+#### Named Exports (Preferred)
+```tsx
+export function DataTable({ ... }) { }
+export function DataTableRow({ ... }) { }
+```
+
+#### Default Exports (Pages Only)
+```tsx
+// Only for page components
+export default function ResearchPage() { }
+```
+
+### 7. Performance Patterns
+
+#### Memoization
+```tsx
+// Memo for expensive renders
+export const ExpensiveChart = memo(function ExpensiveChart({ data }) {
+  // Complex chart rendering
+});
+
+// useMemo for expensive calculations
+const processedData = useMemo(() => 
+  rawData.map(processItem), [rawData]
+);
+```
+
+#### Lazy Loading
+```tsx
+// For heavy components
+const NetworkGraph = lazy(() => import('./NetworkGraph'));
+
+// Usage with Suspense
+<Suspense fallback={<Skeleton />}>
+  <NetworkGraph data={networkData} />
+</Suspense>
+```
+
+### 8. Error Handling
+
+#### Error Boundaries
+```tsx
+// Wrap feature components with error boundaries
+<ErrorBoundary fallback={<ErrorFallback />}>
+  <DataTable data={data} />
+</ErrorBoundary>
+```
+
+#### Loading and Error States
+```tsx
+if (isLoading) return <TableSkeleton />;
+if (error) return <ErrorMessage error={error} onRetry={refetch} />;
+if (!data) return <EmptyState />;
+
+return <DataTable data={data} />;
+```

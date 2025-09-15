@@ -1,0 +1,283 @@
+---
+globs: "*.tsx,*.jsx,*.css"
+description: "Design system standards and UI consistency rules using shadcn/ui and Tailwind CSS"
+---
+
+# Design System & UI Standards
+
+## Theme Configuration
+Custom theme URL: `npx shadcn@latest add https://tweakcn.com/r/themes/cmfjy3fkn000j04ie3smpa8cq`
+
+## Component Library Hierarchy
+
+### 1. shadcn/ui Components (Base Layer)
+```tsx
+// ALWAYS use shadcn/ui components as foundation
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+
+// NEVER recreate basic components that exist in shadcn/ui
+```
+
+### 2. Custom Components (Extension Layer)
+```tsx
+// ONLY extend shadcn/ui when additional functionality needed
+import { DataTable as BaseDataTable } from '@/components/ui/data-table';
+
+// Enhanced DataTable with virtualization, selection, etc.
+export function DataTable({ data, virtualized = false, ...props }) {
+  if (virtualized) {
+    return <VirtualizedDataTable data={data} {...props} />;
+  }
+  return <BaseDataTable data={data} {...props} />;
+}
+```
+
+## Layout Patterns
+
+### 1. App Shell Structure (REQUIRED)
+```tsx
+// MUST follow this layout hierarchy
+<SidebarProvider>
+  <AppSidebar />
+  <main className="flex-1">
+    <header className="border-b">
+      <div className="flex h-16 items-center px-4">
+        <SidebarTrigger />
+        <Breadcrumbs />
+        <div className="ml-auto">
+          <ModeToggle />
+        </div>
+      </div>
+    </header>
+    <div className="container py-6">
+      <PageHeader />
+      <PageContent />
+    </div>
+  </main>
+</SidebarProvider>
+```
+
+### 2. Page Structure (REQUIRED)
+```tsx
+// MUST use consistent page structure
+export default function Page() {
+  return (
+    <>
+      <PageHeader
+        title="Page Title"
+        description="Page description"
+        actions={<Button>Primary Action</Button>}
+      />
+      <div className="space-y-6">
+        <Toolbar>
+          <FilterBar />
+          <div className="ml-auto">
+            <ViewToggle />
+          </div>
+        </Toolbar>
+        <PageContent />
+      </div>
+    </>
+  );
+}
+```
+
+## Styling Standards
+
+### 1. Tailwind CSS Usage
+```tsx
+// PREFERRED: Use utility classes
+<div className="flex items-center justify-between p-4 border-b">
+  <h2 className="text-lg font-semibold">Title</h2>
+  <Badge variant="secondary">Status</Badge>
+</div>
+
+// AVOID: Custom CSS classes unless absolutely necessary
+// Use @apply sparingly and only for repeated complex patterns
+```
+
+### 2. Responsive Design (REQUIRED)
+```tsx
+// ALWAYS implement 3 breakpoints: mobile, tablet, desktop
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <MetricCard />
+  <MetricCard />
+  <MetricCard />
+</div>
+
+// REQUIRED: Mobile-first approach
+<nav className="hidden md:flex"> {/* Desktop nav */}
+<nav className="md:hidden"> {/* Mobile nav */}
+```
+
+### 3. Dark Mode Support (REQUIRED)
+```tsx
+// ALWAYS use dark mode compatible classes
+<div className="bg-background text-foreground border border-border">
+  <h1 className="text-foreground">Title</h1>
+  <p className="text-muted-foreground">Description</p>
+</div>
+
+// NEVER use absolute colors
+// ❌ Bad: bg-white text-black
+// ✅ Good: bg-background text-foreground
+```
+
+## Component Composition Patterns
+
+### 1. Compound Components
+```tsx
+// USE compound pattern for complex UI components
+<DataTable>
+  <DataTableHeader>
+    <DataTableColumn>Name</DataTableColumn>
+    <DataTableColumn>Status</DataTableColumn>
+  </DataTableHeader>
+  <DataTableBody>
+    <DataTableRow>
+      <DataTableCell>Value</DataTableCell>
+    </DataTableRow>
+  </DataTableBody>
+</DataTable>
+```
+
+### 2. Render Props for Flexibility
+```tsx
+// ALLOW customization through render props
+interface DataTableProps<T> {
+  data: T[];
+  renderRow?: (item: T) => React.ReactNode;
+  renderEmpty?: () => React.ReactNode;
+}
+
+function DataTable<T>({ data, renderRow, renderEmpty }) {
+  if (data.length === 0) {
+    return renderEmpty ? renderEmpty() : <EmptyState />;
+  }
+  
+  return (
+    <div>
+      {data.map(item => renderRow ? renderRow(item) : <DefaultRow item={item} />)}
+    </div>
+  );
+}
+```
+
+## Animation and Motion
+
+### 1. Framer Motion Usage (Minimal)
+```tsx
+// ONLY use for meaningful transitions
+import { motion } from 'framer-motion';
+
+// GOOD: Page transitions, modal entry/exit
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  exit={{ opacity: 0, y: -20 }}
+  transition={{ duration: 0.15 }} // Keep short: 120-200ms
+>
+  <DialogContent />
+</motion.div>
+
+// AVOID: Excessive animations on every interaction
+```
+
+### 2. Reduced Motion Support (REQUIRED)
+```tsx
+// ALWAYS respect user preferences
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+## Icon and Asset Standards
+
+### 1. Icon Library (Lucide React)
+```tsx
+// ALWAYS use Lucide React for consistency
+import { Search, Filter, Download, Settings } from 'lucide-react';
+
+// STANDARD sizes: 16px (h-4 w-4), 20px (h-5 w-5), 24px (h-6 w-6)
+<Button size="sm">
+  <Download className="h-4 w-4 mr-2" />
+  Export
+</Button>
+```
+
+### 2. Logo and Brand Assets
+```tsx
+// USE Next.js Image optimization
+import Image from 'next/image';
+
+<Image
+  src="/logo.svg"
+  alt="Xeet Admin"
+  width={120}
+  height={32}
+  className="dark:invert" // Handle dark mode
+/>
+```
+
+## Color and Typography
+
+### 1. Color Palette (Use CSS Variables)
+```tsx
+// ALWAYS use design tokens
+<div className="bg-primary text-primary-foreground"> // Brand colors
+<div className="bg-secondary text-secondary-foreground"> // Secondary colors
+<div className="bg-muted text-muted-foreground"> // Subtle colors
+<div className="bg-destructive text-destructive-foreground"> // Error colors
+```
+
+### 2. Typography Scale
+```tsx
+// REQUIRED: Use consistent text sizing
+<h1 className="text-4xl font-bold">Page Title</h1>
+<h2 className="text-2xl font-semibold">Section Title</h2>
+<h3 className="text-lg font-medium">Subsection</h3>
+<p className="text-sm text-muted-foreground">Description</p>
+<span className="text-xs text-muted-foreground">Meta info</span>
+```
+
+## Accessibility Integration
+
+### 1. ARIA Labels (REQUIRED)
+```tsx
+// ALWAYS provide accessible labels
+<Button aria-label="Delete item">
+  <Trash className="h-4 w-4" />
+</Button>
+
+<Input 
+  aria-describedby="search-help"
+  placeholder="Search..."
+/>
+<p id="search-help" className="text-xs text-muted-foreground">
+  Search across all fields
+</p>
+```
+
+### 2. Focus Management
+```tsx
+// ENSURE visible focus states
+<Button className="focus-visible:ring-2 focus-visible:ring-ring">
+  Action
+</Button>
+
+// MANAGE focus in modals/dialogs (handled by shadcn/ui)
+<Dialog>
+  <DialogTrigger asChild>
+    <Button>Open Dialog</Button>
+  </DialogTrigger>
+  <DialogContent> {/* Focus trapped automatically */}
+    <DialogTitle>Dialog Title</DialogTitle>
+  </DialogContent>
+</Dialog>
+```

@@ -1,0 +1,626 @@
+---
+description: "Storybook standards and patterns for atomic design component development and documentation"
+globs: "**/*.stories.{ts,tsx,js,jsx,mdx}"
+---
+
+# Storybook & Atomic Design Standards
+
+## Overview
+This project uses Storybook v9+ with atomic design principles to build a comprehensive component library. Every component should have stories that demonstrate all states, variations, and usage contexts.
+
+## Atomic Design Hierarchy & Story Organization
+
+### 1. Story Title Patterns
+```tsx
+// REQUIRED: Follow atomic design hierarchy in story titles
+export default {
+  title: 'Atoms/Button',           // Single-purpose, no dependencies
+  title: 'Molecules/SearchBox',    // Composed of atoms
+  title: 'Organisms/DataTable',    // Complex compositions
+  title: 'Templates/DashboardLayout', // Page layouts
+  title: 'Pages/ResearchHub',      // Complete page implementations
+} satisfies Meta<typeof Component>;
+```
+
+### 2. Story File Structure
+```
+/components
+  /atoms
+    Avatar.tsx
+    Avatar.stories.tsx    # REQUIRED for all atoms
+    Avatar.test.tsx
+  /molecules  
+    SearchBox.tsx
+    SearchBox.stories.tsx # REQUIRED for all molecules
+  /organisms
+    DataTable/
+      DataTable.tsx
+      DataTable.stories.tsx # REQUIRED for all organisms
+      DataTable.test.tsx
+      types.ts
+```
+
+## Story Configuration Standards
+
+### 1. Meta Configuration Template
+```tsx
+import type { Meta, StoryObj } from '@storybook/react';
+import { Component } from './Component';
+
+const meta = {
+  title: 'Atoms/Component',
+  component: Component,
+  parameters: {
+    layout: 'centered', // or 'padded', 'fullscreen'
+    docs: {
+      description: {
+        component: `
+**Component** is a [atomic level] component for [purpose].
+
+### Atomic Design Principles
+- ✅ **[Principle 1]**: Description
+- ✅ **[Principle 2]**: Description
+- ✅ **Perfect Accessibility**: WCAG 2.1 AA compliant
+- ✅ **All States**: Handles loading, error, empty states
+
+### Usage
+Perfect for [use cases] in [higher-level components].
+        `,
+      },
+    },
+  },
+  argTypes: {
+    // REQUIRED: Document all props with controls
+    propName: {
+      control: 'select', // or 'text', 'boolean', 'number', etc.
+      options: ['option1', 'option2'],
+      description: 'Description of the prop',
+      table: {
+        category: 'Appearance', // Group related props
+      },
+    },
+  },
+  tags: ['autodocs'], // REQUIRED: Enable automatic documentation
+} satisfies Meta<typeof Component>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+```
+
+### 2. Required Story Variations
+```tsx
+// REQUIRED: Default/Primary story
+export const Default: Story = {
+  args: {
+    // Provide sensible defaults
+  },
+};
+
+// REQUIRED: All States (when applicable)
+export const AllStates: Story = {
+  render: () => (
+    <div className="flex gap-4">
+      <Component state="default" />
+      <Component state="loading" />
+      <Component state="error" />
+      <Component state="empty" />
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'All possible states the component can display.',
+      },
+    },
+  },
+};
+
+// REQUIRED: All Sizes (when applicable)
+export const AllSizes: Story = {
+  render: () => (
+    <div className="flex items-center gap-4">
+      {['xs', 'sm', 'default', 'lg', 'xl'].map(size => (
+        <div key={size} className="text-center">
+          <Component size={size} />
+          <p className="text-xs text-muted-foreground mt-1">{size}</p>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+// REQUIRED: Real Usage Context
+export const InContext: Story = {
+  render: () => (
+    // Show component in realistic usage scenario
+    <div className="max-w-md">
+      {mockData.map(item => (
+        <Component key={item.id} {...item} />
+      ))}
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Component used in a realistic context.',
+      },
+    },
+  },
+};
+```
+
+## Atomic Level Specific Patterns
+
+### 1. Atoms - Foundation Components
+```tsx
+// Atoms should demonstrate all variations and zero dependencies
+const meta = {
+  title: 'Atoms/Button',
+  component: Button,
+  parameters: {
+    docs: {
+      description: {
+        component: `
+**Button** is a foundational atomic component with zero dependencies.
+
+### Atomic Design Principles
+- ✅ **Zero Dependencies**: Pure implementation, no other components required
+- ✅ **All Variants**: Primary, secondary, outline, ghost, destructive
+- ✅ **All Sizes**: xs, sm, default, lg, xl
+- ✅ **Perfect Accessibility**: WCAG 2.1 AA compliant with proper ARIA
+- ✅ **Keyboard Navigation**: Full keyboard support
+        `,
+      },
+    },
+  },
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
+      table: { category: 'Appearance' },
+    },
+    size: {
+      control: 'select', 
+      options: ['default', 'sm', 'lg', 'icon'],
+      table: { category: 'Layout' },
+    },
+    disabled: {
+      control: 'boolean',
+      table: { category: 'State' },
+    },
+  },
+  tags: ['autodocs'],
+} satisfies Meta<typeof Button>;
+
+// REQUIRED: Show all variants
+export const AllVariants: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-2">
+      <Button variant="default">Default</Button>
+      <Button variant="destructive">Destructive</Button>
+      <Button variant="outline">Outline</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="ghost">Ghost</Button>
+      <Button variant="link">Link</Button>
+    </div>
+  ),
+};
+```
+
+### 2. Molecules - Simple Compositions
+```tsx
+// Molecules should show composition of atoms
+const meta = {
+  title: 'Molecules/SearchBox',
+  component: SearchBox,
+  parameters: {
+    docs: {
+      description: {
+        component: `
+**SearchBox** molecule composed of Input and Button atoms.
+
+### Atomic Composition
+- Uses Input atom for text entry
+- Uses Button atom for search trigger
+- Uses Icon atoms for visual indicators
+- Maintains atomic design principles through composition
+        `,
+      },
+    },
+  },
+} satisfies Meta<typeof SearchBox>;
+
+// REQUIRED: Show composition breakdown
+export const CompositionBreakdown: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div>
+        <h3 className="font-medium mb-2">Complete SearchBox</h3>
+        <SearchBox placeholder="Search posts..." />
+      </div>
+      <div>
+        <h3 className="font-medium mb-2">Atomic Components Used</h3>
+        <div className="flex gap-2">
+          <Input placeholder="Input atom" />
+          <Button size="sm">Button atom</Button>
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Shows the molecule and its constituent atoms.',
+      },
+    },
+  },
+};
+```
+
+### 3. Organisms - Complex Systems
+```tsx
+// Organisms should demonstrate scale and performance
+const meta = {
+  title: 'Organisms/DataTable',
+  component: DataTable,
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component: `
+DataTable organism handles galaxy-scale datasets efficiently.
+
+**Atomic Composition:**
+- Button atoms for pagination controls
+- SearchBox molecule for filtering  
+- Badge atoms for status indicators
+- Card atoms for structure
+- Input atoms for inline editing
+
+**Performance Features:**
+- Virtualized rendering for 100k+ rows
+- < 3s TTI, < 250ms interactions
+- Memory-efficient rendering
+        `,
+      },
+    },
+  },
+} satisfies Meta<DataTableProps<MockData>>;
+
+// REQUIRED: Performance/Scale demonstrations
+export const GalaxyScale: Story = {
+  args: {
+    data: generateMockData(5000),
+    virtualized: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Virtualized table handling 5,000 rows efficiently.',
+      },
+    },
+  },
+};
+```
+
+## Mock Data Patterns
+
+### 1. Consistent Mock Data
+```tsx
+// REQUIRED: Use consistent, realistic mock data
+import { faker } from '@faker-js/faker';
+
+// Seed faker for consistent stories
+faker.seed(123);
+
+const MOCK_IMAGE_URL = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face";
+
+const generateMockUsers = (count: number) => 
+  Array.from({ length: count }, () => ({
+    id: faker.string.uuid(),
+    name: faker.person.fullName(),
+    email: faker.internet.email(),
+    avatar: faker.helpers.maybe(() => MOCK_IMAGE_URL, { probability: 0.7 }),
+    initials: faker.person.fullName().split(' ').map(n => n[0]).join(''),
+  }));
+```
+
+### 2. State Variations
+```tsx
+// REQUIRED: Show loading, error, empty states
+export const LoadingState: Story = {
+  args: {
+    data: [],
+    loading: true,
+  },
+};
+
+export const ErrorState: Story = {
+  args: {
+    data: [],
+    error: 'Failed to fetch data. Please try again.',
+  },
+};
+
+export const EmptyState: Story = {
+  args: {
+    data: [],
+    emptyState: (
+      <div className="text-center py-8">
+        <div className="text-6xl mb-4">📊</div>
+        <h3 className="text-lg font-semibold mb-2">No data found</h3>
+        <p className="text-muted-foreground">Get started by adding your first item.</p>
+      </div>
+    ),
+  },
+};
+```
+
+## Accessibility Testing in Stories
+
+### 1. A11y Documentation
+```tsx
+// REQUIRED: Document accessibility features
+const meta = {
+  parameters: {
+    docs: {
+      description: {
+        component: `
+### Accessibility Features
+- ✅ WCAG 2.1 AA compliant
+- ✅ Full keyboard navigation support
+- ✅ Screen reader optimized
+- ✅ High contrast mode support
+- ✅ Proper focus management
+- ✅ ARIA labels and descriptions
+        `,
+      },
+    },
+    // Enable accessibility testing
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            enabled: true,
+          },
+        ],
+      },
+    },
+  },
+} satisfies Meta<typeof Component>;
+
+// Test accessibility scenarios
+export const HighContrast: Story = {
+  parameters: {
+    backgrounds: { default: 'dark' },
+    docs: {
+      description: {
+        story: 'Component in high contrast mode for accessibility testing.',
+      },
+    },
+  },
+};
+
+export const KeyboardNavigation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Test keyboard navigation with Tab, Enter, Space, Arrow keys.',
+      },
+    },
+  },
+};
+```
+
+## Performance Stories
+
+### 1. Performance Benchmarks
+```tsx
+// REQUIRED for organisms: Performance stories
+export const PerformanceBenchmark: Story = {
+  args: {
+    data: generateLargeDataset(10000),
+    virtualized: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `
+**Performance Metrics:**
+- Initial render: < 100ms
+- Scroll performance: 60fps maintained
+- Memory usage: Constant regardless of dataset size
+- TTI: < 3 seconds
+        `,
+      },
+    },
+  },
+};
+```
+
+## Figma Integration
+
+### 1. Design Links
+```tsx
+// REQUIRED: Link to Figma designs when available
+export const WithDesignLink: Story = {
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/YOUR_FILE_ID/Component-Name?node-id=NODE_ID',
+    },
+  },
+};
+```
+
+## Testing Integration
+
+### 1. Story-Driven Testing
+```tsx
+// REQUIRED: Export stories for testing
+export { Default, AllStates, ErrorState } from './Component.stories';
+
+// In Component.test.tsx
+import { composeStories } from '@storybook/react';
+import * as stories from './Component.stories';
+
+const { Default, AllStates } = composeStories(stories);
+
+test('renders default story', () => {
+  render(<Default />);
+  // Test story-specific behavior
+});
+```
+
+## Story Organization Best Practices
+
+### 1. Story Grouping
+```tsx
+// Use consistent story ordering
+export const Default: Story = {}; // Always first
+export const AllStates: Story = {}; // State variations
+export const AllSizes: Story = {}; // Size variations  
+export const InContext: Story = {}; // Real usage
+export const Playground: Story = {}; // Interactive controls
+```
+
+### 2. Parameters for Better Documentation
+```tsx
+const meta = {
+  parameters: {
+    // Control layout
+    layout: 'centered', // 'centered' | 'fullscreen' | 'padded'
+    
+    // Customize docs
+    docs: {
+      toc: {
+        disable: false, // Enable table of contents
+        headingSelector: 'h2, h3',
+      },
+      source: {
+        type: 'dynamic', // Show source code
+      },
+    },
+    
+    // Set backgrounds for testing
+    backgrounds: {
+      values: [
+        { name: 'light', value: '#ffffff' },
+        { name: 'dark', value: '#1a1a1a' },
+      ],
+    },
+  },
+};
+```
+
+## Story Maintenance
+
+### 1. Regular Updates
+- ✅ Update stories when component APIs change
+- ✅ Add stories for new component states/variants
+- ✅ Keep mock data realistic and current
+- ✅ Test stories in different viewports
+- ✅ Verify accessibility compliance regularly
+
+### 2. Story Cleanup
+```tsx
+// AVOID: Too many similar stories
+export const ButtonPrimary: Story = {};
+export const ButtonPrimaryLarge: Story = {};
+export const ButtonPrimarySmall: Story = {};
+
+// PREFERRED: Combined comprehensive stories
+export const AllVariants: Story = {
+  render: () => (
+    <div className="space-y-4">
+      {variants.map(variant => 
+        sizes.map(size => (
+          <Button key={`${variant}-${size}`} variant={variant} size={size}>
+            {variant} {size}
+          </Button>
+        ))
+      )}
+    </div>
+  ),
+};
+```
+
+## Storybook Configuration
+
+### 1. Main Configuration (.storybook/main.ts)
+```typescript
+import type { StorybookConfig } from '@storybook/nextjs-vite';
+
+const config: StorybookConfig = {
+  // REQUIRED: Story detection patterns
+  stories: [
+    '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../src/**/*.mdx',
+  ],
+  
+  addons: [
+    '@storybook/addon-essentials', // Controls, docs, etc.
+    '@storybook/addon-a11y',       // Accessibility testing
+    '@storybook/addon-vitest',     // Testing integration
+  ],
+  
+  framework: '@storybook/nextjs-vite',
+  
+  typescript: {
+    // Enable proper TypeScript checking
+    reactDocgen: 'react-docgen-typescript',
+    check: true,
+  },
+  
+  docs: {
+    autodocs: 'tag', // Generate docs for tagged stories
+  },
+};
+
+export default config;
+```
+
+### 2. Preview Configuration (.storybook/preview.tsx)
+```tsx
+import type { Preview } from '@storybook/react';
+import '../src/app/globals.css'; // Include global styles
+
+const preview: Preview = {
+  parameters: {
+    // REQUIRED: Global parameters
+    layout: 'centered',
+    backgrounds: {
+      default: 'light',
+      values: [
+        { name: 'light', value: '#ffffff' },
+        { name: 'dark', value: '#0a0a0a' },
+      ],
+    },
+    docs: {
+      toc: {
+        contentsSelector: '.sbdocs-content',
+        headingSelector: 'h2, h3',
+      },
+    },
+  },
+  
+  // Global decorators
+  decorators: [
+    (Story) => (
+      <div className="min-h-screen bg-background text-foreground p-4">
+        <Story />
+      </div>
+    ),
+  ],
+  
+  // Global args
+  args: {
+    // Common default args
+  },
+};
+
+export default preview;
+```
+
+This comprehensive rule ensures consistent, accessible, and maintainable Storybook stories that follow atomic design principles and showcase components effectively for both development and documentation purposes.

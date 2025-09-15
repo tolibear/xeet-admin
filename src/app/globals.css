@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Xeet Admin Dark Theme - Professional Admin Platform Colors */
+    --background: 222 47% 11%; /* Deep slate background */
+    --foreground: 213 31% 91%; /* Crisp white text */
+    --card: 224 71% 4%; /* Slightly lighter card background */
+    --card-foreground: 213 31% 91%; /* Card text */
+    --popover: 224 71% 4%; /* Popover background */
+    --popover-foreground: 213 31% 91%; /* Popover text */
+    --primary: 210 100% 60%; /* Professional blue primary */
+    --primary-foreground: 222 47% 11%; /* Primary button text */
+    --secondary: 222 47% 11%; /* Secondary background */
+    --secondary-foreground: 213 31% 91%; /* Secondary text */
+    --muted: 223 47% 11%; /* Muted background */
+    --muted-foreground: 215.4 16.3% 56.9%; /* Muted text */
+    --accent: 210 100% 60%; /* Accent color (blue) */
+    --accent-foreground: 222 47% 11%; /* Accent text */
+    --destructive: 0 72% 51%; /* Red for destructive actions */
+    --destructive-foreground: 213 31% 91%; /* Destructive text */
+    --border: 216 34% 17%; /* Border color */
+    --input: 216 34% 17%; /* Input background */
+    --ring: 210 100% 60%; /* Focus ring */
+    --radius: 0.75rem; /* Slightly more rounded */
+
+    /* Professional chart colors for data visualization */
+    --chart-1: 210 100% 60%; /* Blue */
+    --chart-2: 142 69% 58%; /* Green */
+    --chart-3: 262 83% 68%; /* Purple */
+    --chart-4: 31 81% 56%; /* Orange */
+    --chart-5: 339 82% 62%; /* Pink */
+    --chart-6: 200 98% 39%; /* Teal */
+    --chart-7: 48 89% 60%; /* Yellow */
+    --chart-8: 358 75% 59%; /* Red */
+
+    /* Success and warning colors */
+    --success: 142 69% 58%; /* Green for success */
+    --success-foreground: 222 47% 11%; /* Success text */
+    --warning: 31 81% 56%; /* Orange for warnings */
+    --warning-foreground: 222 47% 11%; /* Warning text */
+
+    /* Semantic colors for admin features */
+    --info: 210 100% 60%; /* Info blue */
+    --info-foreground: 222 47% 11%; /* Info text */
+    --sidebar: 222 47% 11%; /* Sidebar background */
+    --sidebar-foreground: 213 31% 91%; /* Sidebar text */
+    --header: 224 71% 4%; /* Header background */
+    --header-foreground: 213 31% 91%; /* Header text */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

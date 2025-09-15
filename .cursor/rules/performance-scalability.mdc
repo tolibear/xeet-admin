@@ -1,0 +1,206 @@
+---
+alwaysApply: true
+description: "Performance and scalability requirements for handling large datasets and ensuring fast user interactions"
+---
+
+# Performance & Scalability Standards
+
+## Performance Targets (From PRD)
+- **Initial Dashboard TTI**: < 3 seconds
+- **Table Interactions**: < 250ms for 100k row datasets
+- **Live Feed Latency**: < 2s from ingest to UI
+- **Memory Usage**: Efficient for 500k+ posts, 1.9M signals, 493k users
+
+## Data Handling at Scale
+
+### 1. Virtualization Requirements
+```tsx
+// REQUIRED: Use virtualization for tables >1k rows
+import { useVirtualizer } from '@tanstack/react-virtual';
+
+// REQUIRED: For DataTable component
+function DataTable({ data }) {
+  if (data.length > 1000) {
+    return <VirtualizedTable data={data} />;
+  }
+  return <StandardTable data={data} />;
+}
+```
+
+### 2. Pagination Strategy
+```tsx
+// ALWAYS use cursor pagination for large datasets
+interface PaginationParams {
+  cursor?: string;
+  limit: number; // Keep small: 20-50 items
+}
+
+// NEVER use offset pagination for large datasets
+// ❌ Bad: ?page=1000&limit=50 (slow for large offsets)
+// ✅ Good: ?cursor=abc123&limit=50
+```
+
+### 3. Search and Filtering
+```tsx
+// REQUIRED: Debounced search (300ms)
+const [searchTerm, setSearchTerm] = useState('');
+const debouncedSearch = useDebounce(searchTerm, 300);
+
+// REQUIRED: Server-side filtering for large datasets
+const { data } = useQuery({
+  queryKey: ['posts', { search: debouncedSearch, filters }],
+  queryFn: () => searchPosts({ search: debouncedSearch, ...filters }),
+});
+```
+
+### 4. Memory Management
+
+#### Component Cleanup
+```tsx
+useEffect(() => {
+  const subscription = subscribeToLiveFeed();
+  
+  return () => {
+    // ALWAYS cleanup subscriptions
+    subscription.unsubscribe();
+  };
+}, []);
+```
+
+#### Data Caching Strategy
+```tsx
+// REQUIRED: Configure query cache limits
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      cacheTime: 10 * 60 * 1000, // 10 minutes
+    },
+  },
+});
+
+// REQUIRED: Clear cache for inactive orgs
+const clearInactiveOrgData = (activeOrgId: string) => {
+  queryClient.invalidateQueries({
+    predicate: (query) => 
+      query.queryKey[0] !== activeOrgId,
+  });
+};
+```
+
+## Loading Patterns
+
+### 1. Skeleton Loading (Required)
+```tsx
+// ALWAYS show skeletons, never plain spinners for cards/tables
+if (isLoading) {
+  return (
+    <>
+      <MetricCardSkeleton />
+      <MetricCardSkeleton />
+      <TableSkeleton rows={10} />
+    </>
+  );
+}
+```
+
+### 2. Progressive Loading
+```tsx
+// Load critical data first, defer secondary data
+function DashboardPage() {
+  const { data: metrics } = useQuery(['metrics', orgId]); // Critical
+  const { data: activity } = useQuery(['activity', orgId], {
+    enabled: !!metrics, // Load after metrics
+  });
+  
+  return (
+    <>
+      {metrics ? <MetricCards data={metrics} /> : <MetricCardsSkeleton />}
+      {activity ? <ActivityFeed data={activity} /> : <ActivitySkeleton />}
+    </>
+  );
+}
+```
+
+### 3. Streaming for Real-time Data
+```tsx
+// REQUIRED: Use Server-Sent Events or WebSocket for live feeds
+function LiveFeed() {
+  const [posts, setPosts] = useState<Post[]>([]);
+  
+  useEffect(() => {
+    const eventSource = new EventSource(`/api/live-feed/${orgId}`);
+    
+    eventSource.onmessage = (event) => {
+      const newPost = JSON.parse(event.data);
+      setPosts(prev => [newPost, ...prev].slice(0, 100)); // Keep only latest 100
+    };
+    
+    return () => eventSource.close();
+  }, [orgId]);
+}
+```
+
+## Bundle Optimization
+
+### 1. Code Splitting
+```tsx
+// REQUIRED: Lazy load heavy components
+const NetworkGraph = lazy(() => import('./NetworkGraph'));
+const ChartBuilder = lazy(() => import('./ChartBuilder'));
+
+// REQUIRED: Route-level code splitting (automatic with App Router)
+```
+
+### 2. Dynamic Imports
+```tsx
+// REQUIRED: Dynamic imports for libraries used conditionally
+const loadChartLibrary = async () => {
+  const { Chart } = await import('heavy-chart-library');
+  return Chart;
+};
+```
+
+### 3. Image Optimization
+```tsx
+// ALWAYS use Next.js Image component
+import Image from 'next/image';
+
+<Image
+  src="/logo.png"
+  alt="Logo"
+  width={200}
+  height={100}
+  priority={false} // Only true for above-fold images
+/>
+```
+
+## Monitoring and Metrics
+
+### 1. Performance Monitoring
+```tsx
+// REQUIRED: Web Vitals reporting
+import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+
+// Report to analytics service
+getCLS(console.log);
+getFID(console.log);
+```
+
+### 2. Bundle Analysis
+```bash
+# REQUIRED: Regular bundle analysis
+npm run build
+npx @next/bundle-analyzer
+```
+
+### 3. Error Tracking
+```tsx
+// REQUIRED: Track performance-related errors
+if (loadTime > 3000) {
+  console.warn('Slow page load detected', { 
+    page: window.location.pathname,
+    loadTime 
+  });
+}
+```

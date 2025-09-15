@@ -1,0 +1,509 @@
+---
+globs: "*.tsx,*.jsx"
+description: "Accessibility standards and WCAG 2.1 AA compliance requirements"
+---
+
+# Accessibility Standards (WCAG 2.1 AA)
+
+## Core Principles
+
+### 1. Perceivable
+- Information must be presentable in ways users can perceive
+- Provide text alternatives for non-text content
+- Ensure sufficient color contrast
+- Support zoom up to 200% without horizontal scrolling
+
+### 2. Operable
+- Interface components must be operable
+- All functionality available via keyboard
+- No seizure-inducing content
+- Help users navigate and find content
+
+### 3. Understandable
+- Information and UI operation must be understandable
+- Text must be readable and understandable
+- Content must appear and operate predictably
+
+### 4. Robust
+- Content must be robust enough for assistive technologies
+- Use semantic HTML and proper ARIA attributes
+
+## Implementation Standards
+
+### 1. Semantic HTML (REQUIRED)
+```tsx
+// ALWAYS use semantic HTML elements
+<main className="container">
+  <header>
+    <h1>Page Title</h1>
+    <nav aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li aria-current="page">Current Page</li>
+      </ol>
+    </nav>
+  </header>
+  
+  <section aria-labelledby="section-title">
+    <h2 id="section-title">Section Title</h2>
+    <article>
+      <h3>Article Title</h3>
+      <p>Content...</p>
+    </article>
+  </section>
+  
+  <aside aria-label="Sidebar">
+    <!-- Sidebar content -->
+  </aside>
+</main>
+
+// AVOID: Generic divs for semantic elements
+// ❌ Bad: <div className="header">
+// ✅ Good: <header>
+```
+
+### 2. Keyboard Navigation (REQUIRED)
+```tsx
+// ENSURE all interactive elements are keyboard accessible
+function DataTable({ data }: { data: TableData[] }) {
+  const [selectedRow, setSelectedRow] = useState<number>(-1);
+  
+  const handleKeyDown = (event: KeyboardEvent<HTMLTableElement>) => {
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        setSelectedRow(prev => Math.min(prev + 1, data.length - 1));
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        setSelectedRow(prev => Math.max(prev - 1, -1));
+        break;
+      case 'Enter':
+      case ' ':
+        if (selectedRow >= 0) {
+          handleRowAction(data[selectedRow]);
+        }
+        break;
+    }
+  };
+  
+  return (
+    <table 
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="grid"
+      aria-label="Data table"
+    >
+      <thead>
+        <tr role="row">
+          <th scope="col">Name</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((row, index) => (
+          <tr 
+            key={row.id}
+            role="gridcell"
+            aria-selected={selectedRow === index}
+            className={selectedRow === index ? 'bg-muted' : ''}
+          >
+            <td>{row.name}</td>
+            <td>{row.status}</td>
+            <td>
+              <Button
+                onClick={() => handleRowAction(row)}
+                aria-label={`Actions for ${row.name}`}
+              >
+                Actions
+              </Button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+```
+
+### 3. Focus Management (REQUIRED)
+```tsx
+// MANAGE focus for modals, drawers, and navigation
+function Modal({ isOpen, onClose, children }: ModalProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+  
+  useEffect(() => {
+    if (isOpen) {
+      // Store current focus
+      previousFocusRef.current = document.activeElement as HTMLElement;
+      
+      // Focus modal
+      modalRef.current?.focus();
+      
+      // Trap focus within modal
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          onClose();
+        }
+        
+        // Focus trap logic here
+        trapFocus(e, modalRef.current);
+      };
+      
+      document.addEventListener('keydown', handleKeyDown);
+      
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+        // Restore previous focus
+        previousFocusRef.current?.focus();
+      };
+    }
+  }, [isOpen, onClose]);
+  
+  if (!isOpen) return null;
+  
+  return (
+    <div
+      ref={modalRef}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      tabIndex={-1}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+    >
+      <div className="bg-background p-6 rounded-lg">
+        <h2 id="modal-title" className="text-xl font-semibold mb-4">
+          Modal Title
+        </h2>
+        {children}
+        <Button onClick={onClose} className="mt-4">
+          Close
+        </Button>
+      </div>
+    </div>
+  );
+}
+```
+
+### 4. ARIA Labels and Descriptions (REQUIRED)
+```tsx
+// PROVIDE clear, descriptive labels for all interactive elements
+function SearchBox({ onSearch }: { onSearch: (query: string) => void }) {
+  const [query, setQuery] = useState('');
+  const searchId = useId();
+  const helpId = useId();
+  
+  return (
+    <div className="space-y-2">
+      <Label htmlFor={searchId}>Search posts</Label>
+      <div className="relative">
+        <Input
+          id={searchId}
+          type="search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Enter search terms..."
+          aria-describedby={helpId}
+          className="pr-10"
+        />
+        <Button
+          type="submit"
+          size="sm"
+          className="absolute right-1 top-1/2 -translate-y-1/2"
+          onClick={() => onSearch(query)}
+          aria-label="Search"
+        >
+          <Search className="h-4 w-4" />
+        </Button>
+      </div>
+      <p id={helpId} className="text-sm text-muted-foreground">
+        Search across post content, author names, and tags
+      </p>
+    </div>
+  );
+}
+
+// PROVIDE status announcements for dynamic content
+function DataTableWithStatus({ data, isLoading }: TableProps) {
+  const [statusMessage, setStatusMessage] = useState('');
+  
+  useEffect(() => {
+    if (isLoading) {
+      setStatusMessage('Loading data...');
+    } else {
+      setStatusMessage(`Loaded ${data.length} items`);
+    }
+  }, [isLoading, data.length]);
+  
+  return (
+    <div>
+      {/* Screen reader announcements */}
+      <div
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        className="sr-only"
+      >
+        {statusMessage}
+      </div>
+      
+      <DataTable data={data} />
+    </div>
+  );
+}
+```
+
+### 5. Color and Contrast (REQUIRED)
+```tsx
+// ENSURE sufficient color contrast (4.5:1 for normal text, 3:1 for large text)
+// NEVER rely on color alone for information
+
+// ❌ Bad: Only color indicates status
+<Badge className="bg-red-500">Error</Badge>
+<Badge className="bg-green-500">Success</Badge>
+
+// ✅ Good: Color + text/icon
+<Badge variant="destructive">
+  <AlertCircle className="h-3 w-3 mr-1" />
+  Error
+</Badge>
+<Badge variant="default">
+  <CheckCircle className="h-3 w-3 mr-1" />
+  Success
+</Badge>
+
+// USE CSS variables for consistent contrast
+<div className="bg-background text-foreground"> {/* Automatically contrast-safe */}
+<div className="bg-muted text-muted-foreground"> {/* Also contrast-safe */}
+```
+
+### 6. Form Accessibility (REQUIRED)
+```tsx
+function AccessibleForm() {
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const nameId = useId();
+  const emailId = useId();
+  const nameErrorId = useId();
+  const emailErrorId = useId();
+  
+  return (
+    <form noValidate onSubmit={handleSubmit}>
+      <fieldset>
+        <legend className="text-lg font-semibold mb-4">
+          Contact Information
+        </legend>
+        
+        <div className="space-y-2">
+          <Label htmlFor={nameId} className="required">
+            Full Name
+          </Label>
+          <Input
+            id={nameId}
+            name="name"
+            required
+            aria-invalid={!!errors.name}
+            aria-describedby={errors.name ? nameErrorId : undefined}
+            className={errors.name ? 'border-destructive' : ''}
+          />
+          {errors.name && (
+            <p id={nameErrorId} role="alert" className="text-sm text-destructive">
+              {errors.name}
+            </p>
+          )}
+        </div>
+        
+        <div className="space-y-2">
+          <Label htmlFor={emailId} className="required">
+            Email Address
+          </Label>
+          <Input
+            id={emailId}
+            name="email"
+            type="email"
+            required
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? emailErrorId : undefined}
+            className={errors.email ? 'border-destructive' : ''}
+          />
+          {errors.email && (
+            <p id={emailErrorId} role="alert" className="text-sm text-destructive">
+              {errors.email}
+            </p>
+          )}
+        </div>
+      </fieldset>
+      
+      <Button type="submit" className="mt-6">
+        Submit Form
+      </Button>
+    </form>
+  );
+}
+```
+
+### 7. Data Table Accessibility (REQUIRED)
+```tsx
+function AccessibleDataTable({ data, columns }: DataTableProps) {
+  const [sortColumn, setSortColumn] = useState<string | null>(null);
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  
+  return (
+    <div className="overflow-auto">
+      <table role="table" aria-label="Data table with sortable columns">
+        <caption className="sr-only">
+          Table showing {data.length} items with sortable columns
+        </caption>
+        
+        <thead>
+          <tr role="row">
+            {columns.map((column) => (
+              <th
+                key={column.key}
+                scope="col"
+                role="columnheader"
+                aria-sort={
+                  sortColumn === column.key
+                    ? sortDirection
+                    : 'none'
+                }
+                className="cursor-pointer hover:bg-muted"
+                onClick={() => handleSort(column.key)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    handleSort(column.key);
+                  }
+                }}
+                tabIndex={0}
+              >
+                <div className="flex items-center space-x-2">
+                  <span>{column.title}</span>
+                  {sortColumn === column.key && (
+                    <ArrowUpDown 
+                      className="h-4 w-4"
+                      aria-label={`Sorted ${sortDirection}`}
+                    />
+                  )}
+                </div>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        
+        <tbody>
+          {data.map((row, index) => (
+            <tr key={row.id} role="row">
+              {columns.map((column) => (
+                <td
+                  key={`${row.id}-${column.key}`}
+                  role="gridcell"
+                  aria-describedby={`row-${index}-${column.key}-desc`}
+                >
+                  {column.render ? column.render(row[column.key], row) : row[column.key]}
+                  <span id={`row-${index}-${column.key}-desc`} className="sr-only">
+                    {column.title}: {row[column.key]}
+                  </span>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+```
+
+### 8. Loading and Status States (REQUIRED)
+```tsx
+// PROVIDE clear loading and status indicators
+function AccessibleLoadingState() {
+  return (
+    <div
+      role="status"
+      aria-label="Loading"
+      aria-busy="true"
+      className="flex items-center space-x-2 p-4"
+    >
+      <Spinner className="h-4 w-4 animate-spin" />
+      <span className="text-sm text-muted-foreground">
+        Loading data...
+      </span>
+    </div>
+  );
+}
+
+function AccessibleErrorState({ error, onRetry }: ErrorStateProps) {
+  return (
+    <div
+      role="alert"
+      aria-live="assertive"
+      className="border border-destructive rounded-lg p-4"
+    >
+      <div className="flex items-start space-x-3">
+        <AlertCircle className="h-5 w-5 text-destructive mt-0.5" />
+        <div className="flex-1">
+          <h3 className="font-semibold text-destructive">
+            Error Loading Data
+          </h3>
+          <p className="text-sm text-muted-foreground mt-1">
+            {error.message}
+          </p>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={onRetry}
+            className="mt-3"
+          >
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Try Again
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+## Testing Accessibility
+
+### 1. Automated Testing
+```tsx
+import { axe, toHaveNoViolations } from 'jest-axe';
+expect.extend(toHaveNoViolations);
+
+// REQUIRED: Run axe tests on all components
+describe('DataTable Accessibility', () => {
+  it('should not have accessibility violations', async () => {
+    const { container } = render(<DataTable data={mockData} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+});
+```
+
+### 2. Manual Testing Checklist
+```typescript
+// REQUIRED: Manual accessibility testing checklist
+const accessibilityChecklist = {
+  keyboard: [
+    'Tab navigation works through all interactive elements',
+    'Enter/Space activates buttons and links',
+    'Escape closes modals and dropdowns',
+    'Arrow keys navigate lists and tables',
+  ],
+  screenReader: [
+    'All content is announced correctly',
+    'Form fields have proper labels',
+    'Status changes are announced',
+    'Error messages are associated with fields',
+  ],
+  visual: [
+    'Focus indicators are visible',
+    'Color contrast meets WCAG standards',
+    'Text is readable at 200% zoom',
+    'UI works without color alone',
+  ],
+};
+```

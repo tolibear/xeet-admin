@@ -1,0 +1,366 @@
+---
+globs: "*.test.*,*.spec.*,*.tsx,*.ts"
+description: "Testing standards and code quality requirements"
+---
+
+# Testing & Code Quality Standards
+
+## Testing Strategy
+
+### 1. Testing Pyramid
+```
+E2E Tests (Critical User Flows)         ↑ Slow, Expensive
+  ↓                                     │
+Integration Tests (Component + API)     │
+  ↓                                     │
+Unit Tests (Utils, Hooks, Components)  ↓ Fast, Cheap
+```
+
+### 2. Test File Organization
+```
+/components
+  /DataTable
+    DataTable.tsx
+    DataTable.test.tsx     # Component tests
+    DataTable.stories.tsx  # Storybook stories
+/lib
+  utils.ts
+  utils.test.ts           # Utility tests
+/hooks
+  useQuery.ts
+  useQuery.test.ts        # Hook tests
+/__tests__
+  /e2e                    # End-to-end tests
+  /integration            # Integration tests
+```
+
+## Unit Testing (Jest + React Testing Library)
+
+### 1. Component Testing Patterns
+```tsx
+import { render, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { DataTable } from './DataTable';
+
+// REQUIRED: Test component behavior, not implementation
+describe('DataTable', () => {
+  const mockData = [
+    { id: '1', name: 'John', email: 'john@test.com' },
+    { id: '2', name: 'Jane', email: 'jane@test.com' },
+  ];
+  
+  it('renders data correctly', () => {
+    render(<DataTable data={mockData} />);
+    
+    // Test user-visible content
+    expect(screen.getByText('John')).toBeInTheDocument();
+    expect(screen.getByText('jane@test.com')).toBeInTheDocument();
+  });
+  
+  it('handles selection', async () => {
+    const user = userEvent.setup();
+    const onSelectionChange = vi.fn();
+    
+    render(
+      <DataTable 
+        data={mockData} 
+        selectable 
+        onSelectionChange={onSelectionChange} 
+      />
+    );
+    
+    // Interact with the component as a user would
+    const checkbox = screen.getByLabelText('Select John');
+    await user.click(checkbox);
+    
+    expect(onSelectionChange).toHaveBeenCalledWith(['1']);
+  });
+  
+  it('shows empty state when no data', () => {
+    render(<DataTable data={[]} />);
+    expect(screen.getByText('No data available')).toBeInTheDocument();
+  });
+});
+```
+
+### 2. Hook Testing
+```tsx
+import { renderHook, waitFor } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { usePostsQuery } from './usePostsQuery';
+
+// REQUIRED: Test custom hooks in isolation
+describe('usePostsQuery', () => {
+  let queryClient: QueryClient;
+  
+  beforeEach(() => {
+    queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+  });
+  
+  const wrapper = ({ children }: { children: React.ReactNode }) => (
+    <QueryClientProvider client={queryClient}>
+      {children}
+    </QueryClientProvider>
+  );
+  
+  it('fetches posts successfully', async () => {
+    const { result } = renderHook(
+      () => usePostsQuery('org-1'),
+      { wrapper }
+    );
+    
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBe(true);
+    });
+    
+    expect(result.current.data).toHaveLength(2);
+  });
+});
+```
+
+### 3. Utility Function Testing
+```tsx
+import { formatDate, calculateScore } from './utils';
+
+// REQUIRED: Test edge cases and error conditions
+describe('utils', () => {
+  describe('formatDate', () => {
+    it('formats valid dates', () => {
+      expect(formatDate('2024-01-15T10:30:00Z')).toBe('Jan 15, 2024');
+    });
+    
+    it('handles invalid dates gracefully', () => {
+      expect(formatDate('invalid')).toBe('Invalid date');
+      expect(formatDate(null)).toBe('Invalid date');
+    });
+  });
+  
+  describe('calculateScore', () => {
+    it('calculates score correctly', () => {
+      const signals = [
+        { weight: 0.3, value: 80 },
+        { weight: 0.7, value: 60 },
+      ];
+      
+      expect(calculateScore(signals)).toBe(66); // 0.3*80 + 0.7*60
+    });
+    
+    it('handles empty signals', () => {
+      expect(calculateScore([])).toBe(0);
+    });
+  });
+});
+```
+
+## Integration Testing
+
+### 1. API Integration Tests
+```tsx
+import { http, HttpResponse } from 'msw';
+import { setupServer } from 'msw/node';
+import { render, screen, waitFor } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { PostsList } from './PostsList';
+
+// REQUIRED: Mock API responses for integration tests
+const server = setupServer(
+  http.get('/api/posts', () => {
+    return HttpResponse.json({
+      data: [
+        { id: '1', title: 'Post 1', author: 'John' },
+        { id: '2', title: 'Post 2', author: 'Jane' },
+      ],
+      meta: { total: 2, hasNext: false },
+    });
+  })
+);
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+describe('PostsList Integration', () => {
+  it('fetches and displays posts', async () => {
+    const queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+    
+    render(
+      <QueryClientProvider client={queryClient}>
+        <PostsList orgId="org-1" />
+      </QueryClientProvider>
+    );
+    
+    // Initially shows loading
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    
+    // Then shows data
+    await waitFor(() => {
+      expect(screen.getByText('Post 1')).toBeInTheDocument();
+    });
+  });
+});
+```
+
+## End-to-End Testing (Playwright)
+
+### 1. Critical User Flow Tests
+```typescript
+import { test, expect } from '@playwright/test';
+
+// REQUIRED: Test complete user journeys
+test.describe('Research Hub', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/test-org/research');
+    await page.waitForLoadState('networkidle');
+  });
+  
+  test('user can create and save a view', async ({ page }) => {
+    // Create new view
+    await page.getByRole('button', { name: 'Create View' }).click();
+    await page.getByLabel('View Name').fill('Test View');
+    
+    // Add filters
+    await page.getByRole('button', { name: 'Add Filter' }).click();
+    await page.getByRole('combobox', { name: 'Field' }).selectOption('author');
+    await page.getByLabel('Value').fill('test-author');
+    
+    // Save view
+    await page.getByRole('button', { name: 'Save View' }).click();
+    
+    // Verify view appears in saved views list
+    await expect(page.getByText('Test View')).toBeVisible();
+  });
+  
+  test('handles large datasets performantly', async ({ page }) => {
+    // Navigate to view with large dataset
+    await page.getByText('Large Dataset View').click();
+    
+    // Measure performance
+    const startTime = Date.now();
+    await page.waitForSelector('[data-testid="data-table"]');
+    const loadTime = Date.now() - startTime;
+    
+    // REQUIRED: Meet performance requirements
+    expect(loadTime).toBeLessThan(3000); // < 3s TTI
+    
+    // Test table interactions
+    const scrollStart = Date.now();
+    await page.mouse.wheel(0, 1000); // Scroll down
+    await page.waitForTimeout(100);
+    const scrollTime = Date.now() - scrollStart;
+    
+    expect(scrollTime).toBeLessThan(250); // < 250ms interaction
+  });
+});
+```
+
+## Code Quality Standards
+
+### 1. ESLint Configuration
+```typescript
+// REQUIRED: Strict linting rules
+const config = {
+  extends: [
+    'next/core-web-vitals',
+    'next/typescript',
+    '@typescript-eslint/recommended',
+    '@typescript-eslint/recommended-requiring-type-checking',
+  ],
+  rules: {
+    // TypeScript
+    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/prefer-nullish-coalescing': 'error',
+    
+    // React
+    'react-hooks/exhaustive-deps': 'error',
+    'react/jsx-key': 'error',
+    
+    // Performance
+    'react-hooks/rules-of-hooks': 'error',
+    
+    // Accessibility
+    'jsx-a11y/alt-text': 'error',
+    'jsx-a11y/aria-props': 'error',
+  },
+};
+```
+
+### 2. TypeScript Configuration
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
+```
+
+## Test Coverage Requirements
+
+### 1. Coverage Targets
+```bash
+# REQUIRED: Minimum coverage thresholds
+jest --coverage --coverageThreshold='{
+  "global": {
+    "branches": 80,
+    "functions": 85,
+    "lines": 85,
+    "statements": 85
+  }
+}'
+```
+
+### 2. Critical Path Coverage
+```tsx
+// REQUIRED: 100% coverage for critical business logic
+describe('Score Calculation (Critical)', () => {
+  // Must test every branch and edge case
+  test.each([
+    { signals: [], expected: 0 },
+    { signals: [{ weight: 1, value: 100 }], expected: 100 },
+    { signals: [{ weight: 0.5, value: 80 }, { weight: 0.5, value: 60 }], expected: 70 },
+    // ... test all scenarios
+  ])('calculates score correctly for %p', ({ signals, expected }) => {
+    expect(calculateScore(signals)).toBe(expected);
+  });
+});
+```
+
+## Performance Testing
+
+### 1. Bundle Size Monitoring
+```bash
+# REQUIRED: Monitor bundle sizes
+npm run build
+npx @next/bundle-analyzer
+
+# Fail build if bundle exceeds limits
+if [ $BUNDLE_SIZE -gt $MAX_BUNDLE_SIZE ]; then
+  echo "Bundle size exceeded limit"
+  exit 1
+fi
+```
+
+### 2. Performance Tests
+```typescript
+// REQUIRED: Performance benchmarks
+test('DataTable renders 10k rows performantly', async () => {
+  const largeDataset = generateMockData(10000);
+  
+  const startTime = performance.now();
+  render(<DataTable data={largeDataset} virtualized />);
+  const renderTime = performance.now() - startTime;
+  
+  expect(renderTime).toBeLessThan(100); // < 100ms render time
+});
+```

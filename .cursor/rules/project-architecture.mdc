@@ -1,0 +1,63 @@
+---
+alwaysApply: true
+description: "Core project architecture and organization principles for the Xeet Admin platform"
+---
+
+# Xeet Admin - Project Architecture Rules
+
+## Overview
+This is a Next.js 14+ App Router application serving as a comprehensive admin platform for research, analytics, leaderboards, and operational management. Reference the full implementation plan in [.cursor/scratchpad.md](mdc:.cursor/scratchpad.md).
+
+## Project Structure
+```
+/app                    # Next.js App Router pages and layouts
+  /[org]               # Multi-tenant organization routing
+    /layout.tsx        # Org-scoped layout with auth and RBAC
+    /page.tsx          # Overview dashboard
+    /research/         # Research Hub pages
+    /leaderboards/     # Leaderboard management
+    /system/           # System health and admin tools
+/components            # Reusable UI components
+  /ui/                 # shadcn/ui components
+  /charts/             # Chart and visualization components
+  /tables/             # Data table components
+  /builders/           # Query/View/Chart builders
+/lib                   # Utilities and configurations
+  /utils.ts            # Utility functions
+  /mock-data.ts        # Mock data generators
+  /constants.ts        # App constants
+  /types.ts            # TypeScript type definitions
+/hooks                 # Custom React hooks
+/stores                # State management (Zustand/Jotai)
+/styles                # Global styles and theme
+```
+
+## Key Principles
+
+### 1. Multi-Tenancy First
+- All routes must be org-scoped: `/[org]/...`
+- All data queries must include org filtering
+- RBAC must be enforced at component level
+
+### 2. Performance Requirements
+- Initial TTI < 3 seconds
+- Table interactions < 250ms for 100k rows
+- Use virtualization for large datasets
+- Implement proper loading states and skeletons
+
+### 3. Scalability Patterns
+- Component composition over inheritance
+- Server Components where possible
+- Client Components only when needed (interactivity)
+- Proper data fetching patterns with TanStack Query
+
+### 4. Code Organization
+- Feature-based folder structure within domains
+- Shared components in `/components`
+- Business logic in custom hooks
+- Type safety throughout with TypeScript
+
+### 5. Error Boundaries
+- Implement error boundaries at page and component level
+- Graceful degradation for failed features
+- User-friendly error messages with recovery actions
